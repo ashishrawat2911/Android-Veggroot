@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -46,15 +45,5 @@ dependencies {
 //room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-
-    //otp view
-    implementation 'com.chaos.view:pinview:1.4.2'
-    //firebase
-    implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-storage:16.0.2'
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
-    implementation 'com.google.firebase:firebase-database:16.0.2'
-    implementation 'com.google.firebase:firebase-crash:16.2.0'
-    implementation 'com.google.android.gms:play-services-analytics:16.0.3'
 
 }
