@@ -3,10 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.veggroot.android">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:fontFamily="serif-monospace"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -14,15 +21,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <activity android:name=".CallActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OTPActivity"></activity>
-        <activity android:name=".OTPVerifyActivity" />
-        <activity android:name=".CallActivity"></activity>
     </application>
 
 </manifest>
