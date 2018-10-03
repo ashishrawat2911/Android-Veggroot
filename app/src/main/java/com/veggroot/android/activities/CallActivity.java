@@ -1,4 +1,4 @@
-package com.veggroot.android;
+package com.veggroot.android.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
+
+import com.veggroot.android.R;
 
 public class CallActivity extends AppCompatActivity {
 

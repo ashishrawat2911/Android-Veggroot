@@ -1,4 +1,4 @@
-package com.veggroot.android;
+package com.veggroot.android.activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -10,14 +10,16 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.veggroot.android.R;
+
 public class MainActivity extends AppCompatActivity {
 
-    WebView webView;
-    ProgressBar progressBar;
-    String URL = "http://veggroot.godaddysites.com/";
+
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);}}
+        setContentView(R.layout.activity_main);
+    }
+}
