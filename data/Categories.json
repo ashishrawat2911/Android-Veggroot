@@ -16,61 +16,61 @@
       "item_id": 3,
       "item_name": "Capsicum-Green",
       "cost_per_kg": "Rs.35",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 4,
       "item_name": "Bottle Gourd",
       "cost_per_kg": "Rs.20",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 5,
       "item_name": "Tomato-Hybrid",
       "cost_per_kg": "Rs.10",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 6,
       "item_name": "Cauliflower",
       "cost_per_kg": "Rs.20",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 7,
       "item_name": "Onion",
       "cost_per_kg": "Rs.15",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 8,
       "item_name": "Carrot-Local",
       "cost_per_kg": "Rs.45",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 9,
       "item_name": "Potato",
       "cost_per_kg": "Rs.20",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 10,
       "item_name": "Beans",
       "cost_per_kg": "Rs.40",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 11,
       "item_name": "Cucumber",
       "cost_per_kg": "Rs.15",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     }
     ,{
       "item_id": 12,
       "item_name": "Cucumber",
       "cost_per_kg": "Rs.15",
-      "item_image": "1 Kg."
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     }
   ]
 }
