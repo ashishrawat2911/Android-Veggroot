@@ -1,148 +1,148 @@
 {
-    "vegetables" : [
-        {
-            "vegetable_id" : "1",
-            "vegetable_name" : "Ladies Finger",
-            "vegetable_price" : "Rs.30",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "2",
-            "vegetable_name" : "Palak",
-            "vegetable_price" : "Rs.40",
-            "Quantity" : "1/2 Kg."
-        },
-        {
-            "vegetable_id" : "3",
-            "vegetable_name" : "Capsicum-Green",
-            "vegetable_price" : "Rs.35",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "4",
-            "vegetable_name" : "Bottle Gourd",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "5",
-            "vegetable_name" : "Tomato-Hybrid",
-            "vegetable_price" : "Rs.10",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "6",
-            "vegetable_name" : "Cauliflower",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "7",
-            "vegetable_name" : "Onion",
-            "vegetable_price" : "Rs.15",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "8",
-            "vegetable_name" : "Carrot-Local",
-            "vegetable_price" : "Rs.45",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "9",
-            "vegetable_name" : "Potato",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "10",
-            "vegetable_name" : "Beans",
-            "vegetable_price" : "Rs.40",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "11",
-            "vegetable_name" : "Cucumber",
-            "vegetable_price" : "Rs.15",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "12",
-            "vegetable_name" : "Coccinia",
-            "vegetable_price" : "Rs.30",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "13",
-            "vegetable_name" : "Cabbage",
-            "vegetable_price" : "Rs.15",
-            "Quantity" : "1/2 Kg."
-        },
-        {
-            "vegetable_id" : "14",
-            "vegetable_name" : "Chilly",
-            "vegetable_price" : "Rs.5",
-            "Quantity" : "100 gm."
-        },
-        {
-            "vegetable_id" : "15",
-            "vegetable_name" : "Tomato-Local",
-            "vegetable_price" : "Rs.10",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "16",
-            "vegetable_name" : "Brinjal",
-            "vegetable_price" : "Rs.40",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "17",
-            "vegetable_name" : "Spring Onion",
-            "vegetable_price" : "Rs.10",
-            "Quantity" : "100 gm."
-        },
-        {
-            "vegetable_id" : "18",
-            "vegetable_name" : "Bitter Gourd",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "19",
-            "vegetable_name" : "Sweet Corn",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "2 pcs."
-        },
-        {
-            "vegetable_id" : "20",
-            "vegetable_name" : "Beetroot",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "21",
-            "vegetable_name" : "Ridge Gourd",
-            "vegetable_price" : "Rs.25",
-            "Quantity" : "1 Kg."
-        },
-        {
-            "vegetable_id" : "22",
-            "vegetable_name" : "Ginger",
-            "vegetable_price" : "Rs.30",
-            "Quantity" : "250 gm."
-        },
-        {
-            "vegetable_id" : "23",
-            "vegetable_name" : "Parwal",
-            "vegetable_price" : "Rs.25",
-            "Quantity" : "250 gm."
-        },
-        {
-            "vegetable_id" : "24",
-            "vegetable_name" : "Lemon",
-            "vegetable_price" : "Rs.20",
-            "Quantity" : "4 pcs."
-        }
-    ]
+  "vegetables": [
+    {
+      "vegetable_id": "1",
+      "item_name": "Ladies Finger",
+      "cost_per_kg": "Rs.30",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "2",
+      "item_name": "Palak",
+      "cost_per_kg": "Rs.40",
+      "item_image": "1/2 Kg."
+    },
+    {
+      "vegetable_id": "3",
+      "item_name": "Capsicum-Green",
+      "cost_per_kg": "Rs.35",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "4",
+      "item_name": "Bottle Gourd",
+      "cost_per_kg": "Rs.20",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "5",
+      "item_name": "Tomato-Hybrid",
+      "cost_per_kg": "Rs.10",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "6",
+      "item_name": "Cauliflower",
+      "cost_per_kg": "Rs.20",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "7",
+      "item_name": "Onion",
+      "cost_per_kg": "Rs.15",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "8",
+      "item_name": "Carrot-Local",
+      "cost_per_kg": "Rs.45",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "9",
+      "item_name": "Potato",
+      "cost_per_kg": "Rs.20",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "10",
+      "item_name": "Beans",
+      "cost_per_kg": "Rs.40",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "11",
+      "item_name": "Cucumber",
+      "cost_per_kg": "Rs.15",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "12",
+      "item_name": "Coccinia",
+      "cost_per_kg": "Rs.30",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "13",
+      "item_name": "Cabbage",
+      "cost_per_kg": "Rs.15",
+      "item_image": "1/2 Kg."
+    },
+    {
+      "vegetable_id": "14",
+      "item_name": "Chilly",
+      "cost_per_kg": "Rs.5",
+      "item_image": "100 gm."
+    },
+    {
+      "vegetable_id": "15",
+      "item_name": "Tomato-Local",
+      "cost_per_kg": "Rs.10",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "16",
+      "item_name": "Brinjal",
+      "cost_per_kg": "Rs.40",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "17",
+      "item_name": "Spring Onion",
+      "cost_per_kg": "Rs.10",
+      "item_image": "100 gm."
+    },
+    {
+      "vegetable_id": "18",
+      "item_name": "Bitter Gourd",
+      "cost_per_kg": "Rs.20",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "19",
+      "item_name": "Sweet Corn",
+      "cost_per_kg": "Rs.20",
+      "item_image": "2 pcs."
+    },
+    {
+      "vegetable_id": "20",
+      "item_name": "Beetroot",
+      "cost_per_kg": "Rs.20",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "21",
+      "item_name": "Ridge Gourd",
+      "cost_per_kg": "Rs.25",
+      "item_image": "1 Kg."
+    },
+    {
+      "vegetable_id": "22",
+      "item_name": "Ginger",
+      "cost_per_kg": "Rs.30",
+      "item_image": "250 gm."
+    },
+    {
+      "vegetable_id": "23",
+      "item_name": "Parwal",
+      "cost_per_kg": "Rs.25",
+      "item_image": "250 gm."
+    },
+    {
+      "vegetable_id": "24",
+      "item_name": "Lemon",
+      "cost_per_kg": "Rs.20",
+      "item_image": "4 pcs."
+    }
+  ]
 }
