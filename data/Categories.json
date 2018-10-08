@@ -4,13 +4,13 @@
       "item_id": 1,
       "item_name": "Ladies Finger",
       "cost_per_kg": "Rs.30",
-      "item_image": "1 Kg."
+      "item_image": "https://images.pexels.com/photos/5617/red-tomato-vegetable.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
     },
     {
       "item_id": 2,
       "item_name": "Palak",
       "cost_per_kg": "Rs.40",
-      "item_image": "1/2 Kg."
+      "item_image": "https://images.pexels.com/photos/5617/red-tomato-vegetable.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
     },
     {
       "item_id": 3,
