@@ -4,13 +4,13 @@
       "item_id": 1,
       "item_name": "Ladies Finger",
       "cost_per_kg": "Rs.30",
-      "item_image": "https://raw.githubusercontent.com/ashishrawat2911/Android-NewsWeb/master/screenshots/screenshot2.png"
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 2,
       "item_name": "Palak",
       "cost_per_kg": "Rs.40",
-      "item_image": "https://raw.githubusercontent.com/ashishrawat2911/Android-NewsWeb/master/screenshots/screenshot2.png"
+      "item_image": "https://s3.amazonaws.com/main-newsbtc-images/2018/08/23152502/techanalysis-bch4.jpg"
     },
     {
       "item_id": 3,
