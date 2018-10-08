@@ -1,0 +1,148 @@
+{
+    "vegetables" : [
+        {
+            "vegetable_id" : "1",
+            "vegetable_name" : "Ladies Finger",
+            "vegetable_price" : "Rs.30",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "2",
+            "vegetable_name" : "Palak",
+            "vegetable_price" : "Rs.40",
+            "Quantity" : "1/2 Kg."
+        },
+        {
+            "vegetable_id" : "3",
+            "vegetable_name" : "Capsicum-Green",
+            "vegetable_price" : "Rs.35",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "4",
+            "vegetable_name" : "Bottle Gourd",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "5",
+            "vegetable_name" : "Tomato-Hybrid",
+            "vegetable_price" : "Rs.10",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "6",
+            "vegetable_name" : "Cauliflower",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "7",
+            "vegetable_name" : "Onion",
+            "vegetable_price" : "Rs.15",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "8",
+            "vegetable_name" : "Carrot-Local",
+            "vegetable_price" : "Rs.45",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "9",
+            "vegetable_name" : "Potato",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "10",
+            "vegetable_name" : "Beans",
+            "vegetable_price" : "Rs.40",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "11",
+            "vegetable_name" : "Cucumber",
+            "vegetable_price" : "Rs.15",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "12",
+            "vegetable_name" : "Coccinia",
+            "vegetable_price" : "Rs.30",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "13",
+            "vegetable_name" : "Cabbage",
+            "vegetable_price" : "Rs.15",
+            "Quantity" : "1/2 Kg."
+        },
+        {
+            "vegetable_id" : "14",
+            "vegetable_name" : "Chilly",
+            "vegetable_price" : "Rs.5",
+            "Quantity" : "100 gm."
+        },
+        {
+            "vegetable_id" : "15",
+            "vegetable_name" : "Tomato-Local",
+            "vegetable_price" : "Rs.10",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "16",
+            "vegetable_name" : "Brinjal",
+            "vegetable_price" : "Rs.40",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "17",
+            "vegetable_name" : "Spring Onion",
+            "vegetable_price" : "Rs.10",
+            "Quantity" : "100 gm."
+        },
+        {
+            "vegetable_id" : "18",
+            "vegetable_name" : "Bitter Gourd",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "19",
+            "vegetable_name" : "Sweet Corn",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "2 pcs."
+        },
+        {
+            "vegetable_id" : "20",
+            "vegetable_name" : "Beetroot",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "21",
+            "vegetable_name" : "Ridge Gourd",
+            "vegetable_price" : "Rs.25",
+            "Quantity" : "1 Kg."
+        },
+        {
+            "vegetable_id" : "22",
+            "vegetable_name" : "Ginger",
+            "vegetable_price" : "Rs.30",
+            "Quantity" : "250 gm."
+        },
+        {
+            "vegetable_id" : "23",
+            "vegetable_name" : "Parwal",
+            "vegetable_price" : "Rs.25",
+            "Quantity" : "250 gm."
+        },
+        {
+            "vegetable_id" : "24",
+            "vegetable_name" : "Lemon",
+            "vegetable_price" : "Rs.20",
+            "Quantity" : "4 pcs."
+        }
+    ]
+}
