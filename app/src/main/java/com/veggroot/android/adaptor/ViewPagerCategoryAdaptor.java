@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.veggroot.android.activities.MainCategoryActivity;
 import com.veggroot.android.R;
-import com.veggroot.android.fragments.AllCategoryFragment;
 import com.veggroot.android.fragments.FruitsCategoryFragment;
 import com.veggroot.android.fragments.VegetableCategoryFragment;
 
@@ -26,8 +25,7 @@ public class ViewPagerCategoryAdaptor extends FragmentPagerAdapter {
                 return new VegetableCategoryFragment();
             case 1:
                 return new FruitsCategoryFragment();
-            case 2:
-                return new AllCategoryFragment();
+
 
         }
         return null;
@@ -35,7 +33,7 @@ public class ViewPagerCategoryAdaptor extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -46,8 +44,7 @@ public class ViewPagerCategoryAdaptor extends FragmentPagerAdapter {
                 return mContext.getResources().getString(R.string.vegetable);
             case 1:
                 return mContext.getResources().getString(R.string.fruits);
-            case 2:
-                return mContext.getResources().getString(R.string.all);
+
 
         }
         return null;

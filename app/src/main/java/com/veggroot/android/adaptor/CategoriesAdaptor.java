@@ -1,31 +1,37 @@
 package com.veggroot.android.adaptor;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.veggroot.android.Database.ItemContract;
 import com.veggroot.android.R;
+import com.veggroot.android.model.Item;
 import com.veggroot.android.model.Vegetable;
+import com.veggroot.android.utils.OnCart;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.MyViewHolder> implements Filterable {
     private Context ctx;
-    private List<Vegetable> categoriesList;
-    private List<Vegetable> mFilteredList;
-    private OnItemClickListener onItemClickListener;
+    private List<Item> categoriesList;
+    private List<Item> mFilteredList;
 
-    public CategoriesAdaptor(Context ctx, List<Vegetable> categoriesList) {
+
+    public CategoriesAdaptor(Context ctx, List<Item> categoriesList) {
         this.ctx = ctx;
         this.categoriesList = categoriesList;
         this.mFilteredList = categoriesList;
@@ -36,16 +42,18 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         v = LayoutInflater.from(ctx).inflate(R.layout.categories_item, parent, false);
-        return new MyViewHolder(v,this);
+        return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+        Glide.with(ctx)
+                .load(mFilteredList.get(position).getItemImage())
+                .into(holder.categoriesImage);
+        holder.categoriesTitle.setText(mFilteredList.get(position).getItemName());
+        holder.itemRate.setText(mFilteredList.get(position).getCostPerKg());
+        holder.noOfItems.setText(mFilteredList.get(position).totalNumber + "");
 
-        holder.categoriesImage.setImageResource(mFilteredList.get(position).getImage());
-
-
-        holder.categoriesTitle.setText(mFilteredList.get(position).getName());
     }
 
 
@@ -67,11 +75,11 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                     mFilteredList = categoriesList;
                 } else {
 
-                    List<Vegetable> filteredList = new ArrayList<>();
+                    List<Item> filteredList = new ArrayList<>();
 
-                    for (Vegetable vegetable : categoriesList) {
+                    for (Item vegetable : categoriesList) {
 
-                        if (vegetable.getName().toLowerCase().contains(charString) || vegetable.getName().toUpperCase().contains(charString)) {
+                        if (vegetable.getItemName().toLowerCase().contains(charString) || vegetable.getItemName().toUpperCase().contains(charString)) {
 
                             filteredList.add(vegetable);
                         }
@@ -87,46 +95,73 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mFilteredList = (List<Vegetable>) filterResults.values;
+                mFilteredList = (List<Item>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        onItemClickListener = listener;
-    }
 
-    public OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
-    }
 
-    public interface OnItemClickListener {
-        void onItemClick(MyViewHolder item, int position);
-    }
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private CategoriesAdaptor adapter;
-        TextView categoriesTitle;
+        TextView categoriesTitle, itemRate, noOfItems;
         ImageView categoriesImage;
-        CardView cardView;
-        // CardView cardView;
+        Button add, subtract;
 
-        MyViewHolder(View itemView, CategoriesAdaptor parent) {
+
+        MyViewHolder(final View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
-            this.adapter = parent;
+
             categoriesTitle = itemView.findViewById(R.id.categories_title_text_view);
             categoriesImage = itemView.findViewById(R.id.categories_image_view);
-            cardView = itemView.findViewById(R.id.card_view_show_card);
+            itemRate = itemView.findViewById(R.id.item_rate);
+            noOfItems = itemView.findViewById(R.id.number_of_items);
+            add = itemView.findViewById(R.id.add_value);
+            subtract = itemView.findViewById(R.id.subtractValue);
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            }
+                    if (!OnCart.isItemAdded(ctx, mFilteredList.get(getAdapterPosition()).getItemId())) {
+                        OnCart.AddToCartList(ctx,
+                                mFilteredList.get(getAdapterPosition()).getItemId(),
+                                mFilteredList.get(getAdapterPosition()).getItemName(),
+                                mFilteredList.get(getAdapterPosition()).getItemImage(),
+                                mFilteredList.get(getAdapterPosition()).getCostPerKg(), 1);
+                        setList(getAdapterPosition());
+                    } else {
+                        OnCart.addValuetoTotal(ctx, mFilteredList.get(getAdapterPosition()).getItemId());
+                        setList(getAdapterPosition());
+                    }
+                }
+            });
+            subtract.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OnCart.subValueFromTotal(ctx, mFilteredList.get(getAdapterPosition()).getItemId());
+                    setList(getAdapterPosition());
+                }
+            });
 
-        @Override
-        public void onClick(View view) {
-            final OnItemClickListener listener = adapter.getOnItemClickListener();
-            if (listener != null) {
-                listener.onItemClick(this, getAdapterPosition());
-            }
+
         }
+
+
     }
+
+    void setList(int position) {
+
+        try{
+            mFilteredList.get(position).setTotalNumber(OnCart.getTotalNumber(ctx, mFilteredList.get(position).getItemId()));
+
+        }catch (Exception e){
+            mFilteredList.get(position).setTotalNumber(0);
+        }
+
+
+        notifyDataSetChanged();
     }
+
+
+}
 

@@ -5,18 +5,18 @@
     android:id="@+id/card_view_show_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
+    android:layout_margin="4dp"
     android:background="@color/colorWhite"
     android:elevation="100dp"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="10dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,10 +26,46 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/categories_title_text_view"
+                android:id="@+id/cart_item_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/company_color_back"
+                android:padding="10dp"
+                android:text="Rs 15 / KG"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/cart_image_view"
+                app:layout_constraintTop_toBottomOf="@+id/cart_title_text_view"
+                app:layout_constraintVertical_bias="0.008" />
+
+            <ImageView
+                android:id="@+id/cart_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/call_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <TextView
+                android:id="@+id/cart_title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -37,43 +73,18 @@
                 android:maxLines="2"
                 android:text="dnksn"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/categories_image_view"
+                app:layout_constraintStart_toEndOf="@+id/cart_image_view"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/categories_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/call_image" />
-
-            <TextView
-                android:id="@+id/item_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/green_color_back"
-                android:maxWidth="90dp"
-                android:padding="10dp"
-                android:text="Rs 15 / KG"
-                android:textColor="@color/colorWhite" />
-
-
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
@@ -83,10 +94,10 @@
             app:layout_constraintVertical_bias="0.0">
 
             <Button
-                android:id="@+id/subtractValue"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignEnd="@+id/add_value"
+                android:id="@+id/cartSubtractValue"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignEnd="@+id/cartAdd_value"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -99,11 +110,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/number_of_items"
+                android:id="@+id/cartNumber_of_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
+
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -111,17 +123,18 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/colorBlack"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/add_value"
-                app:layout_constraintStart_toEndOf="@+id/subtractValue"
+                app:layout_constraintEnd_toStartOf="@+id/cartAdd_value"
+                app:layout_constraintStart_toEndOf="@+id/cartSubtractValue"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
             <Button
-                android:id="@+id/add_value"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:id="@+id/cartAdd_value"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
