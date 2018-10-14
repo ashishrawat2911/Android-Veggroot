@@ -16,11 +16,8 @@ public class Item {
         this.costPerKg = costPerKg;
         this.totalNumber = totalNumber;
     }
-    public Item(int itemId, String itemName, String itemImage, String costPerKg) {
-        this.itemId = itemId;
-        this.itemName = itemName;
-        this.itemImage = itemImage;
-        this.costPerKg = costPerKg;
+    public Item() {
+
     }
     public int getItemId() {
         return itemId;
@@ -44,5 +41,21 @@ public class Item {
 
     public void setTotalNumber(int totalNumber) {
         this.totalNumber = totalNumber;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
+    }
+
+    public void setCostPerKg(String costPerKg) {
+        this.costPerKg = costPerKg;
     }
 }

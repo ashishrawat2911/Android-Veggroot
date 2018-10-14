@@ -29,5 +29,9 @@
         android:id="@+id/nav_about"
         android:icon="@drawable/about_icon"
         android:title="About Us" />
+    <item
+        android:id="@+id/nav_SignOut"
+        android:icon="@drawable/ic_arrow_forward"
+        android:title="Sign Out" />
 
 </menu>

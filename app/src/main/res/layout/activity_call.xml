@@ -34,7 +34,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="70dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/call_image" />
+            />
 
         <TextView
             android:layout_width="wrap_content"

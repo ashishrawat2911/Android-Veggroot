@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.veggroot.android.R;
 import com.veggroot.android.adaptor.ViewPagerCategoryAdaptor;
@@ -31,7 +32,7 @@ public class MainCategoryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SmartTabLayout mSmartTabLayout;
     private ViewPager mViewPager;
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class MainCategoryActivity extends AppCompatActivity
         mViewPager = (ViewPager) findViewById(R.id.view_pager_fav);
         mViewPager.setAdapter(new ViewPagerCategoryAdaptor(getSupportFragmentManager(), this));
         mSmartTabLayout.setViewPager(mViewPager);
+        mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -116,8 +119,10 @@ public class MainCategoryActivity extends AppCompatActivity
 
         if (id == R.id.nav_cart) {
             startActivity(new Intent(this, CartActivity.class));
-
-
+        } else if (id == R.id.nav_SignOut) {
+            mAuth.signOut();
+            startActivity(new Intent(MainCategoryActivity.this, LoginActivity.class));
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

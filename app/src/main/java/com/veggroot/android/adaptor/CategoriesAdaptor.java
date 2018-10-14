@@ -16,9 +16,13 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
-import com.veggroot.android.Database.ItemContract;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
-import com.veggroot.android.model.Item;
 import com.veggroot.android.model.Vegetable;
 import com.veggroot.android.utils.OnCart;
 
@@ -27,11 +31,12 @@ import java.util.List;
 
 public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.MyViewHolder> implements Filterable {
     private Context ctx;
-    private List<Item> categoriesList;
-    private List<Item> mFilteredList;
+    private List<Vegetable> categoriesList;
+    private List<Vegetable> mFilteredList;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
-
-    public CategoriesAdaptor(Context ctx, List<Item> categoriesList) {
+    public CategoriesAdaptor(Context ctx, List<Vegetable> categoriesList) {
         this.ctx = ctx;
         this.categoriesList = categoriesList;
         this.mFilteredList = categoriesList;
@@ -46,13 +51,30 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+        Toast.makeText(ctx, mFilteredList.get(0).getItemName(), Toast.LENGTH_SHORT).show();
         Glide.with(ctx)
                 .load(mFilteredList.get(position).getItemImage())
                 .into(holder.categoriesImage);
         holder.categoriesTitle.setText(mFilteredList.get(position).getItemName());
         holder.itemRate.setText(mFilteredList.get(position).getCostPerKg());
-        holder.noOfItems.setText(mFilteredList.get(position).totalNumber + "");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(String.valueOf(mFilteredList.get(position).getItemId())).exists()) {
+                    holder.subtract.setText("Added to cart");
+                    holder.subtract.setEnabled(false);
+                }else {
+                    holder.subtract.setText("add");
+                    holder.subtract.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -75,9 +97,9 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                     mFilteredList = categoriesList;
                 } else {
 
-                    List<Item> filteredList = new ArrayList<>();
+                    List<Vegetable> filteredList = new ArrayList<>();
 
-                    for (Item vegetable : categoriesList) {
+                    for (Vegetable vegetable : categoriesList) {
 
                         if (vegetable.getItemName().toLowerCase().contains(charString) || vegetable.getItemName().toUpperCase().contains(charString)) {
 
@@ -95,7 +117,7 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mFilteredList = (List<Item>) filterResults.values;
+                mFilteredList = (List<Vegetable>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -106,43 +128,50 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
         private CategoriesAdaptor adapter;
         TextView categoriesTitle, itemRate, noOfItems;
         ImageView categoriesImage;
-        Button add, subtract;
+        Button subtract;
 
 
         MyViewHolder(final View itemView) {
             super(itemView);
-
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mAuth = FirebaseAuth.getInstance();
             categoriesTitle = itemView.findViewById(R.id.categories_title_text_view);
             categoriesImage = itemView.findViewById(R.id.categories_image_view);
             itemRate = itemView.findViewById(R.id.item_rate);
-            noOfItems = itemView.findViewById(R.id.number_of_items);
-            add = itemView.findViewById(R.id.add_value);
-            subtract = itemView.findViewById(R.id.subtractValue);
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    if (!OnCart.isItemAdded(ctx, mFilteredList.get(getAdapterPosition()).getItemId())) {
-                        OnCart.AddToCartList(ctx,
-                                mFilteredList.get(getAdapterPosition()).getItemId(),
-                                mFilteredList.get(getAdapterPosition()).getItemName(),
-                                mFilteredList.get(getAdapterPosition()).getItemImage(),
-                                mFilteredList.get(getAdapterPosition()).getCostPerKg(), 1);
-                        setList(getAdapterPosition());
-                    } else {
-                        OnCart.addValuetoTotal(ctx, mFilteredList.get(getAdapterPosition()).getItemId());
-                        setList(getAdapterPosition());
-                    }
-                }
-            });
+
+            subtract = itemView.findViewById(R.id.addToCart);
+
             subtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnCart.subValueFromTotal(ctx, mFilteredList.get(getAdapterPosition()).getItemId());
-                    setList(getAdapterPosition());
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(String.valueOf(mFilteredList.get(getAdapterPosition()).getItemId())).exists()) {
+                                OnCart.AddToCartList(mFilteredList.get(getAdapterPosition()).getItemId(),
+                                        mFilteredList.get(getAdapterPosition()).getItemName(),
+                                        mFilteredList.get(getAdapterPosition()).getItemImage(),
+                                        mFilteredList.get(getAdapterPosition()).getCostPerKg(),
+                                        1);
+                                Toast.makeText(ctx, mFilteredList.get(getAdapterPosition()).getItemName() + " Added to cart", Toast.LENGTH_SHORT).show();
+
+                            } else
+                                Toast.makeText(ctx, mFilteredList.get(getAdapterPosition()).getItemName() + " Already Added ", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(ctx, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ctx, databaseError.getDetails(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
                 }
             });
-
 
         }
 
@@ -150,13 +179,6 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
     }
 
     void setList(int position) {
-
-        try{
-            mFilteredList.get(position).setTotalNumber(OnCart.getTotalNumber(ctx, mFilteredList.get(position).getItemId()));
-
-        }catch (Exception e){
-            mFilteredList.get(position).setTotalNumber(0);
-        }
 
 
         notifyDataSetChanged();

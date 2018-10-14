@@ -6,4 +6,6 @@
     <color name="companyColor">#615858</color>
     <color name="colorWhite">#FFFF</color>
     <color name="colorBlack">#000</color>
+
+    <color name="colorGreen">#52a636</color>
 </resources>

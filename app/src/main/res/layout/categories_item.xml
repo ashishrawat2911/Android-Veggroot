@@ -12,129 +12,71 @@
     android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="5dp">
 
-    <android.support.constraint.ConstraintLayout
+
+    <LinearLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/categories_title_text_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_gravity="start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/categories_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/categories_title_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="dnksn"
-                android:textColor="@color/colorBlack"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/categories_image_view"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/categories_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/call_image" />
-
-            <TextView
-                android:id="@+id/item_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/green_color_back"
-                android:maxWidth="90dp"
-                android:padding="10dp"
-                android:text="Rs 15 / KG"
-                android:textColor="@color/colorWhite" />
-
-
-        </LinearLayout>
-
-        <android.support.constraint.ConstraintLayout
+        <ImageView
+            android:id="@+id/categories_image_view"
             android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/item_rate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/green_color_back"
+            android:maxWidth="90dp"
+            android:padding="10dp"
+            android:textColor="@color/colorWhite" />
 
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-            app:layout_constraintHorizontal_bias="0.363"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-            app:layout_constraintVertical_bias="0.0">
+        <Button
+            android:id="@+id/addToCart"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/company_color_back"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/subtractValue"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignEnd="@+id/add_value"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/company_color_back"
-                android:text="-"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/number_of_items"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/add_value"
-                app:layout_constraintStart_toEndOf="@+id/subtractValue"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <Button
-                android:id="@+id/add_value"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/company_color_back"
-                android:gravity="center"
-                android:text="+"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>
