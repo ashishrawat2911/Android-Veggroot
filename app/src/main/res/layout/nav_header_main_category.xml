@@ -23,27 +23,30 @@
         app:srcCompat="@drawable/banana_cartoon" />
 
     <TextView
+        android:id="@+id/navHeadName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Ashish Rawat"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
+        android:id="@+id/navHeadPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="8800523601"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorWhite"
+        android:visibility="gone" />
 
     <TextView
+        android:id="@+id/navHeadAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="J-20, Sec - 12 , Noida"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorWhite"
+        android:visibility="gone" />
 
 
 </LinearLayout>

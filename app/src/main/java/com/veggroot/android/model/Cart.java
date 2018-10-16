@@ -2,63 +2,80 @@ package com.veggroot.android.model;
 
 public class Cart {
 
-    private String costPerKg;
-    private Integer itemId;
-    private String itemImage;
-    private String itemName;
-    private Integer totalNumber;
+    private Double cost;
+    public int itemId;
+    public String itemName;
+    public String itemImage;
+    private Double marketPrice;
+    public int totalNumber;
+    private String unit;
 
     public Cart() {
     }
 
-    public Cart(String costPerKg, Integer itemId, String itemImage, String itemName, Integer totalNumber) {
-
-        this.costPerKg = costPerKg;
+    public Cart(Double cost, int itemId, String itemName, String itemImage, Double marketPrice, int totalNumber, String unit) {
+        this.cost = cost;
         this.itemId = itemId;
-        this.itemImage = itemImage;
         this.itemName = itemName;
-        this.totalNumber = totalNumber;
-    }
-
-    public void setCostPerKg(String costPerKg) {
-        this.costPerKg = costPerKg;
-    }
-
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
-    }
-
-    public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public void setTotalNumber(Integer totalNumber) {
+        this.marketPrice = marketPrice;
         this.totalNumber = totalNumber;
+        this.unit = unit;
     }
 
-    public String getCostPerKg() {
-        return costPerKg;
+    public Double getCost() {
+        return cost;
     }
 
-    public Integer getItemId() {
+    public int getItemId() {
         return itemId;
-    }
-
-    public String getItemImage() {
-        return itemImage;
     }
 
     public String getItemName() {
         return itemName;
     }
 
-    public Integer getTotalNumber() {
+    public String getItemImage() {
+        return itemImage;
+    }
+
+    public Double getMarketPrice() {
+        return marketPrice;
+    }
+
+    public int getTotalNumber() {
         return totalNumber;
     }
 
+    public String getUnit() {
+        return unit;
+    }
 
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
+    }
+
+    public void setMarketPrice(Double marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 }

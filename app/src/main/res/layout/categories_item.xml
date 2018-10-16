@@ -12,7 +12,6 @@
     android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="5dp">
 
-
     <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -33,20 +32,33 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/colorBlack"
-            android:textSize="20sp"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/categories_image_view"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/categories_image_view"
-            android:layout_width="match_parent"
+            android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
             android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/categories_market_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:maxWidth="90dp"
+            android:paddingLeft="10sp"
+            android:paddingTop="5dp"
+            android:paddingRight="10sp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/item_rate"
@@ -58,21 +70,27 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/green_color_back"
             android:maxWidth="90dp"
-            android:padding="10dp"
-            android:textColor="@color/colorWhite" />
+            android:paddingLeft="10sp"
+
+            android:paddingTop="5dp"
+            android:paddingRight="10sp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
 
         <Button
             android:id="@+id/addToCart"
             android:layout_width="match_parent"
-            android:layout_height="31dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/company_color_back"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp"
+            android:background="@drawable/outline_back"
+            android:textColor="@color/companyColor"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

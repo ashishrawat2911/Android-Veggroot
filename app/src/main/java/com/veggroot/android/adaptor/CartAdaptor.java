@@ -2,6 +2,7 @@ package com.veggroot.android.adaptor;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,8 +56,11 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
         Glide.with(ctx)
                 .load(categoriesList.get(position).getItemImage())
                 .into(myViewHolder.categoriesImage);
-        myViewHolder.itemRate.setText(categoriesList.get(position).getCostPerKg());
+        myViewHolder.itemRate.setText("Rs "+categoriesList.get(position).getCost() + " "+categoriesList.get(position).getUnit());
         myViewHolder.noOfItems.setText("" + categoriesList.get(position).getTotalNumber());
+        myViewHolder.marketPrice.setText("Rs " + categoriesList.get(position).getMarketPrice() + " " + categoriesList.get(position).getUnit());
+        myViewHolder.marketPrice.setPaintFlags(myViewHolder.marketPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
     }
 
     @Override
@@ -64,7 +69,7 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView categoriesTitle, itemRate, noOfItems;
+        TextView categoriesTitle, itemRate, noOfItems,marketPrice;
         ImageView categoriesImage;
         Button add, subtract;
 
@@ -77,9 +82,41 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
             itemRate = itemView.findViewById(R.id.cart_item_rate);
             noOfItems = itemView.findViewById(R.id.cartNumber_of_items);
             add = itemView.findViewById(R.id.cartAdd_value);
+            marketPrice=itemView.findViewById(R.id.cart_market_price);
             subtract = itemView.findViewById(R.id.cartSubtractValue);
-
-
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    categoriesList.get(getAdapterPosition()).setTotalNumber(categoriesList.get(getAdapterPosition()).getTotalNumber() + 1);
+                    notifyDataSetChanged();
+                }
+            });
+            subtract.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (categoriesList.get(getAdapterPosition()).getTotalNumber() <= 0) {
+                        categoriesList.remove(getAdapterPosition());
+                        Toast.makeText(ctx, " Item removed from cart", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                    } else if (categoriesList.get(getAdapterPosition()).getTotalNumber() == 1) {
+                        categoriesList.remove(getAdapterPosition());
+                        Toast.makeText(ctx, " Item removed from cart", Toast.LENGTH_SHORT).show();
+                        notifyItemRemoved(getAdapterPosition());
+                    } else {
+                        categoriesList.get(getAdapterPosition()).setTotalNumber(categoriesList.get(getAdapterPosition()).getTotalNumber() - 1);
+                        notifyDataSetChanged();
+                    }
+                }
+            });
         }
+    }
+
+    public void removeFromList(int position) {
+        categoriesList.remove(position);
+notifyItemRemoved(position);
+    }
+
+    public List<Cart> getCategoriesList() {
+        return categoriesList;
     }
 }

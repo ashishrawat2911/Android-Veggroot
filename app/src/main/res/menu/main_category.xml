@@ -8,9 +8,5 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_cart"
-        android:icon="@drawable/cart_icon"
-        android:title="Cart"
-        app:showAsAction="always" />
+
 </menu>

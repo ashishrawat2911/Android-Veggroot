@@ -35,11 +35,9 @@ public class OnCart {
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if (!isItemAdded(itemId)) {
-            Item item = new Item(itemId, itemName, itemImage, costPerKg, totalNumber);
-            mDatabase.child("user").child(mAuth.getUid()).child("cart").child(String.valueOf(itemId)).setValue(item);
+          //  Item item = new Item(itemId, itemName, itemImage, costPerKg, totalNumber);
+           // mDatabase.child("user").child(mAuth.getUid()).child("cart").child(itemName).setValue(item);
         }
-
-
     }
 
     private void checkDataExistsOrNot() {
@@ -78,7 +76,7 @@ public class OnCart {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               total[0] = (Integer) dataSnapshot.child("user").child(mAuth.getUid()).child(String.valueOf(itemId)).child("totalNumber").getValue();
+                total[0] = (Integer) dataSnapshot.child("user").child(mAuth.getUid()).child(String.valueOf(itemId)).child("totalNumber").getValue();
             }
 
             @Override
@@ -86,7 +84,7 @@ public class OnCart {
 
             }
         });
-        if(OnCart.isItemAdded(itemId)){
+        if (OnCart.isItemAdded(itemId)) {
             mDatabase.child("user")
                     .child(mAuth.getUid())
                     .child("cart")
@@ -94,32 +92,6 @@ public class OnCart {
                     .child("totalNumber").setValue(2);
 
         }
-    }
-
-    public static List<Item> getCartAddedList(Context context) {
-        ItemDbHelper databaseHelper = new ItemDbHelper(context);
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        List<Item> cartList = new ArrayList<>();
-        Cursor cursor = database.query(ItemEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                ItemEntry._ID + " DESC");
-        while (cursor.moveToNext()) {
-            int movieId = cursor.getInt(cursor.getColumnIndex(ItemEntry.ITEM_ID));
-            String itemName = cursor.getString(cursor.getColumnIndex(ItemEntry.ITEM_NAME));
-            String itemImage = cursor.getString(cursor.getColumnIndex(ItemEntry.ITEM_IMAGE));
-            String costPerKg = cursor.getString(cursor.getColumnIndex(ItemEntry.COST_PER_KG));
-            int totalNumber = cursor.getInt(cursor.getColumnIndex(ItemEntry.TOTAL_NUMBER));
-
-            cartList.add(new Item(movieId, itemName, itemImage, costPerKg, totalNumber));
-        }
-        cursor.close();
-        database.close();
-        return cartList;
     }
 
   /*  public static void removeListFromCart(Context context, Integer itemId) {

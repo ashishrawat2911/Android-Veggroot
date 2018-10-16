@@ -31,8 +31,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
     public void login(View view) {
         String number = editText.getText().toString().trim();
         if (TextUtils.isEmpty(number) || number.length() < 10) {

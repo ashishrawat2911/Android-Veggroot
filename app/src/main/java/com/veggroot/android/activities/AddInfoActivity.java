@@ -48,10 +48,11 @@ public class AddInfoActivity extends AppCompatActivity {
     }
 
     private void saveToFirebaseDatabase(String name, String email, String address, String pincode) {
-        mDatabase.child("user").child(mAuth.getUid()).child("name").setValue(name);
-        mDatabase.child("user").child(mAuth.getUid()).child("email").setValue(email);
-        mDatabase.child("user").child(mAuth.getUid()).child("address").setValue(address);
-        mDatabase.child("user").child(mAuth.getUid()).child("pincode").setValue(pincode);
+        mDatabase.child("user").child(mAuth.getUid()).child("info").child("name").setValue(name);
+        mDatabase.child("user").child(mAuth.getUid()).child("info").child("email").setValue(email);
+        mDatabase.child("user").child(mAuth.getUid()).child("info").child("address").setValue(address);
+        mDatabase.child("user").child(mAuth.getUid()).child("info").child("pincode").setValue(pincode);
+        mDatabase.child("user").child(mAuth.getUid()).child("info").child("phone").setValue(mAuth.getCurrentUser().getPhoneNumber());
         startActivity(new Intent(AddInfoActivity.this, MainCategoryActivity.class));
         Toast.makeText(this, "Details has been Saved", Toast.LENGTH_SHORT).show();
     }

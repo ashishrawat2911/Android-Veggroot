@@ -2,23 +2,31 @@ package com.veggroot.android.model;
 
 public class Item {
 
-
+    private Double cost;
     public int itemId;
     public String itemName;
     public String itemImage;
-    public String costPerKg;
+    private Double marketPrice;
     public int totalNumber;
+    private String unit;
 
-    public Item(int itemId, String itemName, String itemImage, String costPerKg, int totalNumber) {
+    public Item() {
+    }
+
+    public Item(Double cost, int itemId, String itemName, String itemImage, Double marketPrice, int totalNumber, String unit) {
+        this.cost = cost;
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemImage = itemImage;
-        this.costPerKg = costPerKg;
+        this.marketPrice = marketPrice;
         this.totalNumber = totalNumber;
+        this.unit = unit;
     }
-    public Item() {
 
+    public Double getCost() {
+        return cost;
     }
+
     public int getItemId() {
         return itemId;
     }
@@ -31,16 +39,20 @@ public class Item {
         return itemImage;
     }
 
-    public String getCostPerKg() {
-        return costPerKg;
+    public Double getMarketPrice() {
+        return marketPrice;
     }
 
     public int getTotalNumber() {
         return totalNumber;
     }
 
-    public void setTotalNumber(int totalNumber) {
-        this.totalNumber = totalNumber;
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
     public void setItemId(int itemId) {
@@ -55,7 +67,15 @@ public class Item {
         this.itemImage = itemImage;
     }
 
-    public void setCostPerKg(String costPerKg) {
-        this.costPerKg = costPerKg;
+    public void setMarketPrice(Double marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

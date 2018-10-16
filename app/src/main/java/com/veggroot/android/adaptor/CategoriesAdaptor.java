@@ -2,6 +2,7 @@ package com.veggroot.android.adaptor;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
+import com.veggroot.android.model.Cart;
+import com.veggroot.android.model.Item;
 import com.veggroot.android.model.Vegetable;
 import com.veggroot.android.utils.OnCart;
 
@@ -52,21 +55,22 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        Toast.makeText(ctx, mFilteredList.get(0).getItemName(), Toast.LENGTH_SHORT).show();
         Glide.with(ctx)
                 .load(mFilteredList.get(position).getItemImage())
                 .into(holder.categoriesImage);
         holder.categoriesTitle.setText(mFilteredList.get(position).getItemName());
-        holder.itemRate.setText(mFilteredList.get(position).getCostPerKg());
+        holder.marketPrice.setText("Rs " + mFilteredList.get(position).getMarketPrice() + " " + mFilteredList.get(position).getUnit());
+        holder.itemRate.setText("Rs " + mFilteredList.get(position).getCost() + " " + mFilteredList.get(position).getUnit());
+        holder.marketPrice.setPaintFlags(holder.marketPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(String.valueOf(mFilteredList.get(position).getItemId())).exists()) {
-                    holder.subtract.setText("Added to cart");
-                    holder.subtract.setEnabled(false);
-                }else {
-                    holder.subtract.setText("add");
-                    holder.subtract.setEnabled(true);
+                if (dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(mFilteredList.get(position).getItemName()).exists()) {
+                    holder.addToCartButton.setText(R.string.added_to_cart);
+                    holder.addToCartButton.setEnabled(false);
+                } else {
+                    holder.addToCartButton.setText(R.string.add);
+                    holder.addToCartButton.setEnabled(true);
                 }
             }
 
@@ -106,10 +110,8 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                             filteredList.add(vegetable);
                         }
                     }
-
                     mFilteredList = filteredList;
                 }
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = mFilteredList;
                 return filterResults;
@@ -126,10 +128,9 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private CategoriesAdaptor adapter;
-        TextView categoriesTitle, itemRate, noOfItems;
+        TextView categoriesTitle, itemRate, marketPrice;
         ImageView categoriesImage;
-        Button subtract;
-
+        Button addToCartButton;
 
         MyViewHolder(final View itemView) {
             super(itemView);
@@ -137,23 +138,28 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
             mAuth = FirebaseAuth.getInstance();
             categoriesTitle = itemView.findViewById(R.id.categories_title_text_view);
             categoriesImage = itemView.findViewById(R.id.categories_image_view);
+            marketPrice = itemView.findViewById(R.id.categories_market_price);
             itemRate = itemView.findViewById(R.id.item_rate);
-
-
-            subtract = itemView.findViewById(R.id.addToCart);
-
-            subtract.setOnClickListener(new View.OnClickListener() {
+            addToCartButton = itemView.findViewById(R.id.addToCart);
+            addToCartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(String.valueOf(mFilteredList.get(getAdapterPosition()).getItemId())).exists()) {
-                                OnCart.AddToCartList(mFilteredList.get(getAdapterPosition()).getItemId(),
+                            if (!dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(mFilteredList.get(getAdapterPosition()).getItemName()).exists()) {
+                                Cart cart = new Cart(mFilteredList.get(getAdapterPosition()).getCost(),
+                                        mFilteredList.get(getAdapterPosition()).getItemId(),
                                         mFilteredList.get(getAdapterPosition()).getItemName(),
-                                        mFilteredList.get(getAdapterPosition()).getItemImage(),
-                                        mFilteredList.get(getAdapterPosition()).getCostPerKg(),
-                                        1);
+                                        mFilteredList.get(getAdapterPosition()).getItemImage()
+                                        , mFilteredList.get(getAdapterPosition()).getCost(),
+                                        1,
+                                        mFilteredList.get(getAdapterPosition()).getUnit());
+                                mDatabase.child("user")
+                                        .child(mAuth.getUid())
+                                        .child("cart")
+                                        .child(mFilteredList.get(getAdapterPosition()).getItemName())
+                                        .setValue(cart);
                                 Toast.makeText(ctx, mFilteredList.get(getAdapterPosition()).getItemName() + " Added to cart", Toast.LENGTH_SHORT).show();
 
                             } else
@@ -168,22 +174,9 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
                         }
                     });
-
-
                 }
             });
-
         }
-
-
     }
-
-    void setList(int position) {
-
-
-        notifyDataSetChanged();
-    }
-
-
 }
 

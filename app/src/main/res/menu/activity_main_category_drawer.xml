@@ -33,5 +33,9 @@
         android:id="@+id/nav_SignOut"
         android:icon="@drawable/ic_arrow_forward"
         android:title="Sign Out" />
+    <item
+        android:id="@+id/nav_visit_us"
+        android:icon="@drawable/ic_arrow_forward"
+        android:title="Sign Out" />
 
 </menu>

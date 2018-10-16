@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 import com.veggroot.android.adaptor.CartAdaptor;
 import com.veggroot.android.model.Cart;
+import com.veggroot.android.model.Vegetable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class CartActivity extends AppCompatActivity {
 
     RecyclerView cartRecyclerView;
     CartAdaptor cartAdaptor;
+    List<Cart> categoriesTopList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class CartActivity extends AppCompatActivity {
         cartRecyclerView.setHasFixedSize(true);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getCurrentUser().getUid()).child("cart");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("cart");
         mDatabase.keepSynced(true);
         loadList();
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -53,7 +56,8 @@ public class CartActivity extends AppCompatActivity {
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-
+                cartAdaptor.removeFromList(viewHolder.getAdapterPosition());
+                cartAdaptor.notifyDataSetChanged();
             }
         }).attachToRecyclerView(cartRecyclerView);
 
@@ -75,16 +79,35 @@ public class CartActivity extends AppCompatActivity {
                     categoriesList.add(cart);
 
                 }
+                categoriesTopList = categoriesList;
                 cartAdaptor = new CartAdaptor(CartActivity.this, categoriesList);
                 cartRecyclerView.setAdapter(cartAdaptor);
-                cartAdaptor.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(CartActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        List<Cart> cartList = cartAdaptor.getCategoriesList();
+        mDatabase.setValue(null);
+        for (int i = 0; i < cartAdaptor.getCategoriesList().size(); i++) {
+            Cart cart = new Cart(cartList.get(i).getCost(),
+                    cartList.get(i).getItemId(),
+                    cartList.get(i).getItemName(),
+                    cartList.get(i).getItemImage(),
+                    cartList.get(i).getMarketPrice(),
+                    cartList.get(i).getTotalNumber(), cartList.get(i).getUnit()
+            );
+            mDatabase.child(cartList.get(i).getItemName()).setValue(cart);
+        }
+
 
     }
 }

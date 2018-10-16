@@ -111,7 +111,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             checkDataExistsOrNot();
                             Toast.makeText(VerifyPhoneActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            mDatabase.child("user").child(mAuth.getUid()).child("phone").setValue(mAuth.getCurrentUser().getPhoneNumber());
                         } else {
                             Toast.makeText(VerifyPhoneActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -121,11 +120,12 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     private void checkDataExistsOrNot() {
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Toast.makeText(VerifyPhoneActivity.this, "" + dataSnapshot.child("user").child(mAuth.getUid()).exists(), Toast.LENGTH_SHORT).show();
-                if (dataSnapshot.child("user").child(mAuth.getUid()).exists()) {
+                if (dataSnapshot.child("user").child(mAuth.getUid()).child("info").exists()) {
                     startActivity(new Intent(VerifyPhoneActivity.this, MainCategoryActivity.class));
                 } else startActivity(new Intent(VerifyPhoneActivity.this, AddInfoActivity.class));
 
@@ -133,7 +133,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(VerifyPhoneActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,6 +150,4 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         );
 
     }
-
-
 }

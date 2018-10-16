@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ public class FruitsCategoryFragment extends Fragment {
 
     DatabaseReference myRef;
 
+    ProgressBar progressBar;
 
     RecyclerView categoriesRecyclerView;
     CategoriesAdaptor categoriesAdaptor;
@@ -53,32 +55,37 @@ public class FruitsCategoryFragment extends Fragment {
         //instantiate RecyclerView
         categoriesRecyclerView = view.findViewById(R.id.categories_recycler_view);
         categoriesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-
-        myRef = FirebaseDatabase.getInstance().getReference().child("vegetables");
+        progressBar = view.findViewById(R.id.itemCategoryProgressBar);
+        myRef = FirebaseDatabase.getInstance().getReference().child("item").child("fruits");
         myRef.keepSynced(true);
+
+        loadData();
+        //creating a new list
+
+        return view;
+    }
+
+    private void loadData() {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.VISIBLE);
                 List<Vegetable> categoriesList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Vegetable vegetable = dataSnapshot1.getValue(Vegetable.class);
                     Log.e("Fire base data change ", "onDataChange: " + vegetable.getItemName());
                     categoriesList.add(vegetable);
                 }
+                progressBar.setVisibility(View.GONE);
                 categoriesAdaptor = new CategoriesAdaptor(getContext(), categoriesList);
                 categoriesRecyclerView.setAdapter(categoriesAdaptor);
                 categoriesAdaptor.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        //creating a new list
-
-        return view;
     }
 }

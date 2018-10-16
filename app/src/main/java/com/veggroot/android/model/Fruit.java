@@ -1,6 +1,6 @@
 package com.veggroot.android.model;
 
-public class Vegetable {
+public class Fruit {
 
     private Double cost;
     private Integer itemId;
