@@ -124,10 +124,13 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(VerifyPhoneActivity.this, "" + dataSnapshot.child("user").child(mAuth.getUid()).exists(), Toast.LENGTH_SHORT).show();
                 if (dataSnapshot.child("user").child(mAuth.getUid()).child("info").exists()) {
                     startActivity(new Intent(VerifyPhoneActivity.this, MainCategoryActivity.class));
-                } else startActivity(new Intent(VerifyPhoneActivity.this, AddInfoActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(VerifyPhoneActivity.this, AddInfoActivity.class));
+                    finish();
+                }
 
             }
 

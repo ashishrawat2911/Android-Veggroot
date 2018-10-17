@@ -10,7 +10,7 @@
     android:elevation="100dp"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="10dp">
+    >
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -50,6 +50,7 @@
             android:background="@drawable/green_color_back"
             android:padding="10dp"
             android:text="Rs 15 / KG"
+            android:textSize="12sp"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,8 +75,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintWidth_percent="0.2" />
-
-
         <TextView
             android:id="@+id/cart_title_text_view"
             android:layout_width="wrap_content"
@@ -112,7 +111,7 @@
 
             <Button
                 android:id="@+id/cartSubtractValue"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignEnd="@+id/cartAdd_value"
                 android:layout_gravity="center"
@@ -141,7 +140,7 @@
                 android:paddingRight="5dp"
                 android:text="0"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cartAdd_value"
                 app:layout_constraintHorizontal_bias="0.545"
@@ -151,7 +150,7 @@
 
             <Button
                 android:id="@+id/cartAdd_value"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/outline_back"

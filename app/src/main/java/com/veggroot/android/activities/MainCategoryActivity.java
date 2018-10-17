@@ -37,6 +37,8 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.veggroot.android.R;
 import com.veggroot.android.adaptor.ViewPagerCategoryAdaptor;
 
+import java.util.Objects;
+
 public class MainCategoryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SmartTabLayout mSmartTabLayout;
@@ -76,14 +78,20 @@ public class MainCategoryActivity extends AppCompatActivity
                     name.setVisibility(View.VISIBLE);
                     phoneNumber.setVisibility(View.VISIBLE);
                     address.setVisibility(View.VISIBLE);
+
                     name.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("name").getValue().toString());
                     address.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("address").getValue().toString());
-                    phoneNumber.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("phone").getValue().toString());
+                    phoneNumber.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("phoneNumber").getValue().toString());
                 } else {
                     name.setVisibility(View.GONE);
                     phoneNumber.setVisibility(View.GONE);
                     address.setVisibility(View.GONE);
                 }
+                if (!dataSnapshot.child("user").child(mAuth.getUid()).exists()) {
+                    startActivity(new Intent(MainCategoryActivity.this, LoginActivity.class));
+                    finish();
+                }
+
             }
 
             @Override

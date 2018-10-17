@@ -18,8 +18,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.Database.ItemContract;
 import com.veggroot.android.R;
 import com.veggroot.android.model.Cart;
@@ -56,9 +59,9 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
         Glide.with(ctx)
                 .load(categoriesList.get(position).getItemImage())
                 .into(myViewHolder.categoriesImage);
-        myViewHolder.itemRate.setText("Rs "+categoriesList.get(position).getCost() + " "+categoriesList.get(position).getUnit());
+        myViewHolder.itemRate.setText("Rs " + categoriesList.get(position).getCost() + " / " + categoriesList.get(position).getUnit());
         myViewHolder.noOfItems.setText("" + categoriesList.get(position).getTotalNumber());
-        myViewHolder.marketPrice.setText("Rs " + categoriesList.get(position).getMarketPrice() + " " + categoriesList.get(position).getUnit());
+        myViewHolder.marketPrice.setText("Rs " + categoriesList.get(position).getMarketPrice() + " / " + categoriesList.get(position).getUnit());
         myViewHolder.marketPrice.setPaintFlags(myViewHolder.marketPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
     }
@@ -69,9 +72,10 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView categoriesTitle, itemRate, noOfItems,marketPrice;
+        TextView categoriesTitle, itemRate, noOfItems, marketPrice;
         ImageView categoriesImage;
         Button add, subtract;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,29 +86,28 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
             itemRate = itemView.findViewById(R.id.cart_item_rate);
             noOfItems = itemView.findViewById(R.id.cartNumber_of_items);
             add = itemView.findViewById(R.id.cartAdd_value);
-            marketPrice=itemView.findViewById(R.id.cart_market_price);
+            marketPrice = itemView.findViewById(R.id.cart_market_price);
             subtract = itemView.findViewById(R.id.cartSubtractValue);
+
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    categoriesList.get(getAdapterPosition()).setTotalNumber(categoriesList.get(getAdapterPosition()).getTotalNumber() + 1);
-                    notifyDataSetChanged();
+
+                    updateList( getAdapterPosition(), true);
                 }
             });
             subtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (categoriesList.get(getAdapterPosition()).getTotalNumber() <= 0) {
-                        categoriesList.remove(getAdapterPosition());
+                    if (categoriesList.get( getAdapterPosition()).getTotalNumber() <= 0) {
+                        removeFromList( getAdapterPosition());
                         Toast.makeText(ctx, " Item removed from cart", Toast.LENGTH_SHORT).show();
                         notifyDataSetChanged();
-                    } else if (categoriesList.get(getAdapterPosition()).getTotalNumber() == 1) {
-                        categoriesList.remove(getAdapterPosition());
+                    } else if (categoriesList.get( getAdapterPosition()).getTotalNumber() == 1) {
+                        removeFromList( getAdapterPosition());
                         Toast.makeText(ctx, " Item removed from cart", Toast.LENGTH_SHORT).show();
-                        notifyItemRemoved(getAdapterPosition());
                     } else {
-                        categoriesList.get(getAdapterPosition()).setTotalNumber(categoriesList.get(getAdapterPosition()).getTotalNumber() - 1);
-                        notifyDataSetChanged();
+                        updateList( getAdapterPosition(), false);
                     }
                 }
             });
@@ -112,11 +115,37 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
     }
 
     public void removeFromList(int position) {
+        mDatabase.child("user")
+                .child(mAuth.getUid())
+                .child("cart")
+                .child(categoriesList.get(position).getItemName())
+                .setValue(null);
         categoriesList.remove(position);
-notifyItemRemoved(position);
+        notifyItemRemoved(position);
     }
 
     public List<Cart> getCategoriesList() {
         return categoriesList;
     }
+
+    private void updateList(int position, boolean b) {
+        if (b) {
+            mDatabase.child("user")
+                    .child(mAuth.getUid())
+                    .child("cart")
+                    .child(categoriesList.get(position).getItemName())
+                    .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() + 1);
+            categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() + 1);
+        } else {
+            mDatabase.child("user")
+                    .child(mAuth.getUid())
+                    .child("cart")
+                    .child(categoriesList.get(position).getItemName())
+                    .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() - 1);
+            categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() - 1);
+
+        }
+        notifyItemChanged(position);
+    }
+
 }

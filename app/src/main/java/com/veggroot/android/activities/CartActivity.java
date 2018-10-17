@@ -1,5 +1,6 @@
 package com.veggroot.android.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,24 +31,26 @@ import java.util.List;
 public class CartActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
+    TextView noOfItems, totalCost;
     RecyclerView cartRecyclerView;
     CartAdaptor cartAdaptor;
     List<Cart> categoriesTopList = new ArrayList<>();
+    List<Cart> categoriesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        setTitle("Cart");
+        noOfItems = findViewById(R.id.no_of_items);
+        totalCost = findViewById(R.id.cartTotalPrice);
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartRecyclerView.setHasFixedSize(true);
-
+        Toast.makeText(this, categoriesList.size() + "", Toast.LENGTH_SHORT).show();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("cart");
         mDatabase.keepSynced(true);
-        loadList();
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -57,31 +61,32 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 cartAdaptor.removeFromList(viewHolder.getAdapterPosition());
-                cartAdaptor.notifyDataSetChanged();
             }
         }).attachToRecyclerView(cartRecyclerView);
-
-    }
-
-
-    public void placeOrder(View view) {
-    }
-
-    private void loadList() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Cart> categoriesList = new ArrayList<>();
-
+                Double cost = 0D;
+                categoriesList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cart cart = dataSnapshot1.getValue(Cart.class);
                     categoriesList.add(cart);
 
+
                 }
-                categoriesTopList = categoriesList;
-                cartAdaptor = new CartAdaptor(CartActivity.this, categoriesList);
-                cartRecyclerView.setAdapter(cartAdaptor);
+                if (categoriesList.size() == 0) {
+                    noOfItems.setText("0");
+                    totalCost.setText("Rs 0");
+                } else {
+                    noOfItems.setText("" + categoriesList.size());
+                    for (int i = 0; i < categoriesList.size(); i++) {
+                        cost = cost + categoriesList.get(i).getCost() * categoriesList.get(i).totalNumber;
+                    }
+                    totalCost.setText("Rs " + cost);
+                }
+
+                cartAdaptor.notifyDataSetChanged();
             }
 
             @Override
@@ -89,10 +94,21 @@ public class CartActivity extends AppCompatActivity {
                 Toast.makeText(CartActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        cartAdaptor = new CartAdaptor(CartActivity.this, categoriesList);
+        cartRecyclerView.setAdapter(cartAdaptor);
+    }
+
+
+    public void placeOrder(View view) {
+        startActivity(new Intent(CartActivity.this, OrderProcessActivity.class));
 
     }
 
-    @Override
+    private void loadList() {
+
+    }
+
+  /*  @Override
     protected void onStop() {
         super.onStop();
         List<Cart> cartList = cartAdaptor.getCategoriesList();
@@ -109,5 +125,5 @@ public class CartActivity extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 }

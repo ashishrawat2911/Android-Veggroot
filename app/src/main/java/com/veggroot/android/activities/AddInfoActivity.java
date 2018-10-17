@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.veggroot.android.R;
+import com.veggroot.android.model.Info;
 
 public class AddInfoActivity extends AppCompatActivity {
     EditText name, email, address, pincode;
@@ -48,12 +49,15 @@ public class AddInfoActivity extends AppCompatActivity {
     }
 
     private void saveToFirebaseDatabase(String name, String email, String address, String pincode) {
-        mDatabase.child("user").child(mAuth.getUid()).child("info").child("name").setValue(name);
-        mDatabase.child("user").child(mAuth.getUid()).child("info").child("email").setValue(email);
-        mDatabase.child("user").child(mAuth.getUid()).child("info").child("address").setValue(address);
-        mDatabase.child("user").child(mAuth.getUid()).child("info").child("pincode").setValue(pincode);
-        mDatabase.child("user").child(mAuth.getUid()).child("info").child("phone").setValue(mAuth.getCurrentUser().getPhoneNumber());
-        startActivity(new Intent(AddInfoActivity.this, MainCategoryActivity.class));
-        Toast.makeText(this, "Details has been Saved", Toast.LENGTH_SHORT).show();
+        try {
+            Info info = new Info(name, email, address, pincode, mAuth.getCurrentUser().getPhoneNumber());
+            mDatabase.child("user").child(mAuth.getUid()).child("info").setValue(info);
+            startActivity(new Intent(AddInfoActivity.this, MainCategoryActivity.class));
+            finish();
+            Toast.makeText(this, "Details has been Saved", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Details not Saved", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

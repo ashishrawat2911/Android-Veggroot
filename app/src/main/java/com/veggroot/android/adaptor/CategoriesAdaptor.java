@@ -59,8 +59,8 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                 .load(mFilteredList.get(position).getItemImage())
                 .into(holder.categoriesImage);
         holder.categoriesTitle.setText(mFilteredList.get(position).getItemName());
-        holder.marketPrice.setText("Rs " + mFilteredList.get(position).getMarketPrice() + " " + mFilteredList.get(position).getUnit());
-        holder.itemRate.setText("Rs " + mFilteredList.get(position).getCost() + " " + mFilteredList.get(position).getUnit());
+        holder.marketPrice.setText("Rs " + mFilteredList.get(position).getMarketPrice() + " / " + mFilteredList.get(position).getUnit());
+        holder.itemRate.setText("Rs " + mFilteredList.get(position).getCost() + " / " + mFilteredList.get(position).getUnit());
         holder.marketPrice.setPaintFlags(holder.marketPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -152,7 +152,7 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                                         mFilteredList.get(getAdapterPosition()).getItemId(),
                                         mFilteredList.get(getAdapterPosition()).getItemName(),
                                         mFilteredList.get(getAdapterPosition()).getItemImage()
-                                        , mFilteredList.get(getAdapterPosition()).getCost(),
+                                        , mFilteredList.get(getAdapterPosition()).getMarketPrice(),
                                         1,
                                         mFilteredList.get(getAdapterPosition()).getUnit());
                                 mDatabase.child("user")
