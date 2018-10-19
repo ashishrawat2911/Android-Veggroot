@@ -89,7 +89,6 @@ public class VegetableCategoryFragment extends Fragment {
                 categoriesRecyclerView.setAdapter(categoriesAdaptor);
                 categoriesAdaptor.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

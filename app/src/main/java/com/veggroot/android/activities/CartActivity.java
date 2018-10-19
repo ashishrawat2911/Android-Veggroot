@@ -1,16 +1,18 @@
 package com.veggroot.android.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 import com.veggroot.android.adaptor.CartAdaptor;
 import com.veggroot.android.model.Cart;
-import com.veggroot.android.model.Vegetable;
+import com.veggroot.android.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +36,11 @@ public class CartActivity extends AppCompatActivity {
     TextView noOfItems, totalCost;
     RecyclerView cartRecyclerView;
     CartAdaptor cartAdaptor;
-    List<Cart> categoriesTopList = new ArrayList<>();
     List<Cart> categoriesList = new ArrayList<>();
+    Button cartContinueButton;
+    LinearLayout linearLayout;
+    Double totalItemCost;
+    ConstraintLayout bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,11 @@ public class CartActivity extends AppCompatActivity {
         noOfItems = findViewById(R.id.no_of_items);
         totalCost = findViewById(R.id.cartTotalPrice);
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
+        cartContinueButton = findViewById(R.id.cartContinueButton);
+        linearLayout = findViewById(R.id.noItemsInCart);
+        bottomBar = findViewById(R.id.constraintLayoutBottomBar);
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartRecyclerView.setHasFixedSize(true);
-        Toast.makeText(this, categoriesList.size() + "", Toast.LENGTH_SHORT).show();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("cart");
         mDatabase.keepSynced(true);
@@ -72,20 +79,26 @@ public class CartActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cart cart = dataSnapshot1.getValue(Cart.class);
                     categoriesList.add(cart);
-
-
                 }
                 if (categoriesList.size() == 0) {
+                    bottomBar.setVisibility(View.GONE);
+                    cartRecyclerView.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    cartContinueButton.setEnabled(false);
                     noOfItems.setText("0");
                     totalCost.setText("Rs 0");
                 } else {
+                    bottomBar.setVisibility(View.VISIBLE);
+                    cartRecyclerView.setVisibility(View.VISIBLE);
+                    linearLayout.setVisibility(View.GONE);
+                    cartContinueButton.setEnabled(true);
                     noOfItems.setText("" + categoriesList.size());
                     for (int i = 0; i < categoriesList.size(); i++) {
                         cost = cost + categoriesList.get(i).getCost() * categoriesList.get(i).totalNumber;
                     }
+                    totalItemCost = cost;
                     totalCost.setText("Rs " + cost);
                 }
-
                 cartAdaptor.notifyDataSetChanged();
             }
 
@@ -100,12 +113,20 @@ public class CartActivity extends AppCompatActivity {
 
 
     public void placeOrder(View view) {
-        startActivity(new Intent(CartActivity.this, OrderProcessActivity.class));
+        Intent i = new Intent(CartActivity.this, OrderProcessActivity.class);
+        i.putExtra(Constants.TOTAL_ITEMS, categoriesList.size());
+        i.putExtra(Constants.TOTAL_ITEM_COST, totalItemCost);
+        startActivity(i);
 
     }
 
     private void loadList() {
 
+    }
+
+    public void startShopping(View view) {
+        startActivity(new Intent(this, MainCategoryActivity.class));
+        finish();
     }
 
   /*  @Override

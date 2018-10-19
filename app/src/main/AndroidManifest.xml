@@ -15,8 +15,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".activities.MainCategoryActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.CartActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
@@ -27,8 +28,9 @@
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".activities.VerifyPhoneActivity" />
-        <activity android:name=".activities.AddInfoActivity"></activity>
-        <activity android:name=".activities.OrderProcessActivity"></activity>
+        <activity android:name=".activities.AddInfoActivity" />
+        <activity android:name=".activities.OrderProcessActivity" />
+        <activity android:name=".EditAddressActivity"></activity>
     </application>
 
 </manifest>

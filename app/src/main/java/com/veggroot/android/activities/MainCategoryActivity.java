@@ -119,7 +119,9 @@ public class MainCategoryActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_cart) {
-            startActivity(new Intent(this, CartActivity.class));
+            startActivity(new Intent(   this, CartActivity.class));
+        } else if (id == R.id.nav_visit_us) {
+
         } else if (id == R.id.nav_SignOut) {
             mAuth.signOut();
             startActivity(new Intent(MainCategoryActivity.this, LoginActivity.class));

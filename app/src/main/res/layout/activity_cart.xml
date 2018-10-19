@@ -12,20 +12,51 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/noItemsInCart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_shopping_cart_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="There currently are no items in the cart" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorGreen"
+            android:padding="5dp"
+            android:onClick="startShopping"
+            android:text="Start shopping" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayoutBottomBar"
         android:layout_width="match_parent"
-        android:background="#fac94c"
         android:layout_height="wrap_content"
-        >
+        android:background="#fac94c">
 
         <TextView
             android:id="@+id/no_of_items"
@@ -51,7 +82,7 @@
             android:text="items"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/no_of_items"
-            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/cartContinueButton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/no_of_items"
             app:layout_constraintTop_toTopOf="@+id/no_of_items"
@@ -82,7 +113,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/cartContinueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

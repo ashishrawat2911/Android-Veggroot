@@ -124,9 +124,9 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
         notifyItemRemoved(position);
     }
 
-    public List<Cart> getCategoriesList() {
+ /*   public List<Cart> getCategoriesList() {
         return categoriesList;
-    }
+    }*/
 
     private void updateList(int position, boolean b) {
         if (b) {

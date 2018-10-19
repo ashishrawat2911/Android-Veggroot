@@ -47,7 +47,6 @@ public class AddInfoActivity extends AppCompatActivity {
                 pincode.getText().toString()
         );
     }
-
     private void saveToFirebaseDatabase(String name, String email, String address, String pincode) {
         try {
             Info info = new Info(name, email, address, pincode, mAuth.getCurrentUser().getPhoneNumber());

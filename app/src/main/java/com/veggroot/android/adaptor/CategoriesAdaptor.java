@@ -25,9 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 import com.veggroot.android.model.Cart;
-import com.veggroot.android.model.Item;
 import com.veggroot.android.model.Vegetable;
-import com.veggroot.android.utils.OnCart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,8 +124,7 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private CategoriesAdaptor adapter;
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView categoriesTitle, itemRate, marketPrice;
         ImageView categoriesImage;
         Button addToCartButton;

@@ -26,7 +26,6 @@ public class ViewPagerCategoryAdaptor extends FragmentPagerAdapter {
             case 1:
                 return new FruitsCategoryFragment();
 
-
         }
         return null;
     }
