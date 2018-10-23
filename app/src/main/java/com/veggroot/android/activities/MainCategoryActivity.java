@@ -98,7 +98,7 @@ public class MainCategoryActivity extends AppCompatActivity
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(MainCategoryActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -145,8 +145,20 @@ public class MainCategoryActivity extends AppCompatActivity
         MenuItem item = menu.findItem(R.id.action_cart);
         MenuItemCompat.setActionView(item, R.layout.cart_icon_badge);
         RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
-        TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
-        tv.setText("12");
+        final TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("cart");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tv.setText(""+dataSnapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
