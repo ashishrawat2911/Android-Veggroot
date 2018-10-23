@@ -1,7 +1,9 @@
-package com.veggroot.android;
+package com.veggroot.android.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.veggroot.android.R;
 
 public class EditAddressActivity extends AppCompatActivity {
 

@@ -26,11 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.VerifyPhoneActivity" />
         <activity android:name=".activities.AddInfoActivity" />
         <activity android:name=".activities.OrderProcessActivity" />
-        <activity android:name=".EditAddressActivity"></activity>
+        <activity android:name=".activities.EditAddressActivity" />
+        <activity android:name=".activities.VisitUsActivity"></activity>
     </application>
 
 </manifest>

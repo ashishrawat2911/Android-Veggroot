@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -28,11 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="50" />
-                            <entry key="outputName" value="ic_shopping_cart_black" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_shopping_cart_black_icon" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Ashish" />
-                            <entry key="width" value="50" />
                           </map>
                         </option>
                       </PersistentState>

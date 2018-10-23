@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,8 +121,9 @@ public class MainCategoryActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_cart) {
-            startActivity(new Intent(   this, CartActivity.class));
+            startActivity(new Intent(this, CartActivity.class));
         } else if (id == R.id.nav_visit_us) {
+            startActivity(new Intent(this, VisitUsActivity.class));
 
         } else if (id == R.id.nav_SignOut) {
             mAuth.signOut();
@@ -139,14 +142,28 @@ public class MainCategoryActivity extends AppCompatActivity
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_category, menu);
-        return true;
+        MenuItem item = menu.findItem(R.id.action_cart);
+        MenuItemCompat.setActionView(item, R.layout.cart_icon_badge);
+        RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
+        TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
+        tv.setText("12");
+        notifCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainCategoryActivity.this, CartActivity.class));
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_search:
-
+                startActivity(new Intent(MainCategoryActivity.this, CartActivity.class));
+                return true;
+            case R.id.action_cart:
+                Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

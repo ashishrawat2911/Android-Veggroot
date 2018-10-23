@@ -1,10 +1,8 @@
 package com.veggroot.android.activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,7 +68,6 @@ public class CartActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(cartRecyclerView);
         mDatabase.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Double cost = 0D;
@@ -120,31 +116,9 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
-    private void loadList() {
-
-    }
 
     public void startShopping(View view) {
         startActivity(new Intent(this, MainCategoryActivity.class));
         finish();
     }
-
-  /*  @Override
-    protected void onStop() {
-        super.onStop();
-        List<Cart> cartList = cartAdaptor.getCategoriesList();
-        mDatabase.setValue(null);
-        for (int i = 0; i < cartAdaptor.getCategoriesList().size(); i++) {
-            Cart cart = new Cart(cartList.get(i).getCost(),
-                    cartList.get(i).getItemId(),
-                    cartList.get(i).getItemName(),
-                    cartList.get(i).getItemImage(),
-                    cartList.get(i).getMarketPrice(),
-                    cartList.get(i).getTotalNumber(), cartList.get(i).getUnit()
-            );
-            mDatabase.child(cartList.get(i).getItemName()).setValue(cart);
-        }
-
-
-    }*/
 }

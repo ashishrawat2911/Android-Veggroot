@@ -1,4 +1,4 @@
-package com.veggroot.android;
+package com.veggroot.android.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.veggroot.android.R;
 
 public class SignUpActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
