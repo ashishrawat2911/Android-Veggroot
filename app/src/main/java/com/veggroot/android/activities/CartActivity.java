@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,6 +78,7 @@ public class CartActivity extends AppCompatActivity {
                     categoriesList.add(cart);
                 }
                 if (categoriesList.size() == 0) {
+                    setTitle("Cart");
                     bottomBar.setVisibility(View.GONE);
                     cartRecyclerView.setVisibility(View.GONE);
                     linearLayout.setVisibility(View.VISIBLE);
@@ -88,6 +90,7 @@ public class CartActivity extends AppCompatActivity {
                     cartRecyclerView.setVisibility(View.VISIBLE);
                     linearLayout.setVisibility(View.GONE);
                     cartContinueButton.setEnabled(true);
+                    setTitle("Cart (" + categoriesList.size() + ")");
                     noOfItems.setText("" + categoriesList.size());
                     for (int i = 0; i < categoriesList.size(); i++) {
                         cost = cost + categoriesList.get(i).getCost() * categoriesList.get(i).totalNumber;

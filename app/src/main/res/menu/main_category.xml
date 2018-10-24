@@ -4,14 +4,10 @@
 
 
 
-    <item
-        android:id="@+id/action_search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
-        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_cart"
-        android:icon="@drawable/cart_icon"
+        android:icon="@drawable/ic_action_cart_white"
         android:title="Cart"
         android:actionLayout="@layout/cart_icon_badge"
         app:showAsAction="always" />

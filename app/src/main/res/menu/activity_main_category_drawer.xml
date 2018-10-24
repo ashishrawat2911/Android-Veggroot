@@ -4,12 +4,12 @@
     tools:showIn="navigation_view">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/ic_action_home"
         android:title="Home" />
 
     <item
         android:id="@+id/nav_cart"
-        android:icon="@drawable/cart_icon"
+        android:icon="@drawable/ic_action_cart"
         android:title="Cart" />
     <item
         android:id="@+id/nav_say_hi"
@@ -17,18 +17,18 @@
         android:title="Say hi" />
     <item
         android:id="@+id/nav_help"
-        android:icon="@drawable/help_icon"
+        android:icon="@drawable/ic_action_help"
         android:title="Help" />
     <item
         android:id="@+id/nav_about"
-        android:icon="@drawable/about_icon"
+        android:icon="@drawable/ic_action_about"
         android:title="About Us" />
     <item
         android:id="@+id/nav_visit_us"
-        android:icon="@drawable/ic_arrow_forward"
+        android:icon="@drawable/ic_action_visit_us"
         android:title="Visit Us" />
     <item
         android:id="@+id/nav_SignOut"
-        android:icon="@drawable/ic_arrow_forward"
+        android:icon="@drawable/ic_action_sign_out"
         android:title="Sign Out" />
 </menu>

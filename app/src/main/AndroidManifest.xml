@@ -22,7 +22,6 @@
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,7 +30,7 @@
         <activity android:name=".activities.AddInfoActivity" />
         <activity android:name=".activities.OrderProcessActivity" />
         <activity android:name=".activities.EditAddressActivity" />
-        <activity android:name=".activities.VisitUsActivity"></activity>
+        <activity android:name=".activities.VisitUsActivity"/>
     </application>
 
 </manifest>

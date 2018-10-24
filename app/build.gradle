@@ -49,4 +49,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.3'
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'android.arch.core:runtime:1.1.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 }

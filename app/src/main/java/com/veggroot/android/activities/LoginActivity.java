@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
             editText.requestFocus();
             return;
         }
-
         Intent intent = new Intent(LoginActivity.this, VerifyPhoneActivity.class);
         intent.putExtra("phonenumber", number);
         startActivity(intent);

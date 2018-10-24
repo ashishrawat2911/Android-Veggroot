@@ -60,7 +60,6 @@ public class MainCategoryActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         name = headerView.findViewById(R.id.navHeadName);
@@ -146,16 +145,22 @@ public class MainCategoryActivity extends AppCompatActivity
         MenuItemCompat.setActionView(item, R.layout.cart_icon_badge);
         RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
         final TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
+        tv.setVisibility(View.GONE);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("cart");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tv.setText(""+dataSnapshot.getChildrenCount());
+                if (!dataSnapshot.exists()) {
+                    tv.setVisibility(View.GONE);
+                } else {
+                    tv.setVisibility(View.VISIBLE);
+                    tv.setText("" + dataSnapshot.getChildrenCount());
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(MainCategoryActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -171,9 +176,6 @@ public class MainCategoryActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_search:
-                startActivity(new Intent(MainCategoryActivity.this, CartActivity.class));
-                return true;
             case R.id.action_cart:
                 Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
                 return true;

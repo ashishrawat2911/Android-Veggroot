@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="48dp"
         android:layout_height="fill_parent"
-        android:src="@drawable/cart_icon" />
+        android:src="@drawable/ic_action_cart_white" />
 
     <!-- Badge Count -->
     <TextView
@@ -19,7 +19,6 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/circle_back"
         android:gravity="center"
-
         android:text="0"
         android:textColor="@color/colorWhite"
         android:textSize="10sp" />
