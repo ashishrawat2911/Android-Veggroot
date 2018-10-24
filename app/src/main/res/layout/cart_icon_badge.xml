@@ -7,8 +7,11 @@
 
     <!-- Menu Item Image -->
     <ImageView
-        android:layout_width="48dp"
-        android:layout_height="fill_parent"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_action_cart_white" />
 
     <!-- Badge Count -->
@@ -21,6 +24,6 @@
         android:gravity="center"
         android:text="0"
         android:textColor="@color/colorWhite"
-        android:textSize="10sp" />
+        android:textSize="8sp" />
 
 </RelativeLayout>
