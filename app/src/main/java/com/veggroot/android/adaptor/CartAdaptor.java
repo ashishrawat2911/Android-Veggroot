@@ -1,7 +1,6 @@
 package com.veggroot.android.adaptor;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -93,21 +92,18 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
                 @Override
                 public void onClick(View v) {
 
-                    updateList( getAdapterPosition(), true);
+                    updateList(getAdapterPosition(), true);
                 }
             });
             subtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (categoriesList.get( getAdapterPosition()).getTotalNumber() <= 0) {
-                        removeFromList( getAdapterPosition());
-                        Toast.makeText(ctx, " Item removed from cart", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                    } else if (categoriesList.get( getAdapterPosition()).getTotalNumber() == 1) {
-                        removeFromList( getAdapterPosition());
-                        Toast.makeText(ctx, " Item removed from cart", Toast.LENGTH_SHORT).show();
+                    if (categoriesList.get(getAdapterPosition()).getTotalNumber() <= 0) {
+                        removeFromList(getAdapterPosition());
+                    } else if (categoriesList.get(getAdapterPosition()).getTotalNumber() == 1) {
+                        removeFromList(getAdapterPosition());
                     } else {
-                        updateList( getAdapterPosition(), false);
+                        updateList(getAdapterPosition(), false);
                     }
                 }
             });
@@ -115,10 +111,12 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
     }
 
     public void removeFromList(int position) {
+        String itemName = categoriesList.get(position).getItemName();
+        Toast.makeText(ctx, itemName + " Item removed from cart", Toast.LENGTH_SHORT).show();
         mDatabase.child("user")
                 .child(mAuth.getUid())
                 .child("cart")
-                .child(categoriesList.get(position).getItemName())
+                .child(itemName)
                 .setValue(null);
         categoriesList.remove(position);
         notifyItemRemoved(position);
@@ -129,20 +127,27 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
     }*/
 
     private void updateList(int position, boolean b) {
-        if (b) {
-            mDatabase.child("user")
-                    .child(mAuth.getUid())
-                    .child("cart")
-                    .child(categoriesList.get(position).getItemName())
-                    .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() + 1);
-            categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() + 1);
-        } else {
-            mDatabase.child("user")
-                    .child(mAuth.getUid())
-                    .child("cart")
-                    .child(categoriesList.get(position).getItemName())
-                    .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() - 1);
-            categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() - 1);
+        try {
+
+            if (b) {
+                mDatabase.child("user")
+                        .child(mAuth.getUid())
+                        .child("cart")
+                        .child(categoriesList.get(position).getItemName())
+                        .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() + 1);
+                categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() + 1);
+            } else {
+                mDatabase.child("user")
+                        .child(mAuth.getUid())
+                        .child("cart")
+                        .child(categoriesList.get(position).getItemName())
+                        .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() - 1);
+                categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() - 1);
+
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+
+            Toast.makeText(ctx, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
         }
         notifyItemChanged(position);

@@ -104,7 +104,7 @@ public class OrderProcessActivity extends AppCompatActivity {
                 if (cartList.size() == 0) {
                     finish();
                 }
-                setTitle("Delivery ("+cartList.size()+")");
+                setTitle("Delivery (" + cartList.size() + ")");
                 priceNoOfItems.setText("Price ( " + cartList.size() + " items )");
                 cost.setText("Rs " + inCost);
                 finalCost.setText("Rs " + inCost);
@@ -134,5 +134,9 @@ public class OrderProcessActivity extends AppCompatActivity {
                 Toast.makeText(OrderProcessActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void editAddress(View view) {
+        startActivity(new Intent(OrderProcessActivity.this, EditAddressActivity.class));
     }
 }
