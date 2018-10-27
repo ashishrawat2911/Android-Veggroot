@@ -49,9 +49,6 @@ public class OrderProcessActivity extends AppCompatActivity {
         cost = findViewById(R.id.orderPrice);
         finalCost = findViewById(R.id.orderTotalValue);
         address = findViewById(R.id.orderProcessAddress);
-        priceNoOfItems.setText("Price ( " + noOfItems + "items )");
-        cost.setText("Rs " + totalCost);
-        finalCost.setText("Rs " + totalCost);
         orderProcessRecyclerView = findViewById(R.id.orderProcessRecyclerView);
         orderProcessRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         orderProcessRecyclerView.setHasFixedSize(true);

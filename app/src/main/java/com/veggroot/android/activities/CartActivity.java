@@ -75,6 +75,7 @@ public class CartActivity extends AppCompatActivity {
                 categoriesList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cart cart = dataSnapshot1.getValue(Cart.class);
+                    cost = cost + cart.getCost() * cart.getTotalNumber();
                     categoriesList.add(cart);
                 }
                 if (categoriesList.size() == 0) {
@@ -92,9 +93,6 @@ public class CartActivity extends AppCompatActivity {
                     cartContinueButton.setEnabled(true);
                     setTitle("Cart (" + categoriesList.size() + ")");
                     noOfItems.setText("" + categoriesList.size());
-                    for (int i = 0; i < categoriesList.size(); i++) {
-                        cost = cost + categoriesList.get(i).getCost() * categoriesList.get(i).totalNumber;
-                    }
                     totalItemCost = cost;
                     totalCost.setText("Rs " + cost);
                 }

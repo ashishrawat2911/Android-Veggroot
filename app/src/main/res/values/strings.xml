@@ -38,4 +38,11 @@
     <string name="place_order">Place Order</string>
     <string name="added_to_cart">Added to cart</string>
     <string name="add">add</string>
+    <string name="price_0_items">Price (0 items)</string>
+    <string name="total">Total</string>
+    <string name="price_details">Price details</string>
+    <string name="free">FREE</string>
+    <string name="delivery">Delivery</string>
+    <string name="rs_0">RS 0</string>
+    <string name="confirm">CONFIRM</string>
 </resources>

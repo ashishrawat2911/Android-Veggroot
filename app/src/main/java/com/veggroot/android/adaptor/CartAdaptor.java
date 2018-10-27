@@ -70,13 +70,13 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
         return categoriesList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView categoriesTitle, itemRate, noOfItems, marketPrice;
         ImageView categoriesImage;
         Button add, subtract;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mAuth = FirebaseAuth.getInstance();
@@ -91,16 +91,14 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     updateList(getAdapterPosition(), true);
                 }
             });
             subtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (categoriesList.get(getAdapterPosition()).getTotalNumber() <= 0) {
-                        removeFromList(getAdapterPosition());
-                    } else if (categoriesList.get(getAdapterPosition()).getTotalNumber() == 1) {
+                    int totalNumber = categoriesList.get(getAdapterPosition()).getTotalNumber();
+                    if (totalNumber <= 1) {
                         removeFromList(getAdapterPosition());
                     } else {
                         updateList(getAdapterPosition(), false);
@@ -112,7 +110,7 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
 
     public void removeFromList(int position) {
         String itemName = categoriesList.get(position).getItemName();
-        Toast.makeText(ctx, itemName + " Item removed from cart", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, itemName + " removed from cart", Toast.LENGTH_SHORT).show();
         mDatabase.child("user")
                 .child(mAuth.getUid())
                 .child("cart")
@@ -146,9 +144,7 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
 
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-
             Toast.makeText(ctx, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
         }
         notifyItemChanged(position);
     }
