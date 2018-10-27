@@ -111,8 +111,6 @@ public class CartActivity extends AppCompatActivity {
 
     public void placeOrder(View view) {
         Intent i = new Intent(CartActivity.this, OrderProcessActivity.class);
-        i.putExtra(Constants.TOTAL_ITEMS, categoriesList.size());
-        i.putExtra(Constants.TOTAL_ITEM_COST, totalItemCost);
         startActivity(i);
 
     }

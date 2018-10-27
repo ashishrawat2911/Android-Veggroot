@@ -42,9 +42,6 @@ public class OrderProcessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_process);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        Intent i = getIntent();
-        totalCost = i.getDoubleExtra(Constants.TOTAL_ITEM_COST, 0D);
-        noOfItems = i.getIntExtra(Constants.TOTAL_ITEMS, 0);
         priceNoOfItems = findViewById(R.id.priceNoOfItems);
         cost = findViewById(R.id.orderPrice);
         finalCost = findViewById(R.id.orderTotalValue);
