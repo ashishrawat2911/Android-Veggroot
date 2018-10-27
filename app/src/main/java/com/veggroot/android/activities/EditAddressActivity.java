@@ -20,6 +20,7 @@ public class EditAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_address);
+        setTitle("Edit Address");
         address = findViewById(R.id.editAddress);
         pincode = findViewById(R.id.editPinCode);
         mDatabase = FirebaseDatabase.getInstance().getReference();
