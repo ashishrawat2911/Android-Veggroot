@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -47,7 +48,8 @@ public class MainCategoryActivity extends AppCompatActivity
     private ViewPager mViewPager;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    TextView name, phoneNumber, address;
+    TextView name, phoneNumber, address, circleAvatar;
+    LinearLayout navigationLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,8 @@ public class MainCategoryActivity extends AppCompatActivity
         name = headerView.findViewById(R.id.navHeadName);
         phoneNumber = headerView.findViewById(R.id.navHeadPhoneNumber);
         address = headerView.findViewById(R.id.navHeadAddress);
+        circleAvatar = headerView.findViewById(R.id.circleAvatar);
+        navigationLayout = headerView.findViewById(R.id.navigation_header_layout);
         navigationView.setNavigationItemSelectedListener(this);
         mSmartTabLayout = (SmartTabLayout) findViewById(R.id.tab_view_pager_fav);
         mViewPager = (ViewPager) findViewById(R.id.view_pager_fav);
@@ -79,14 +83,18 @@ public class MainCategoryActivity extends AppCompatActivity
                     name.setVisibility(View.VISIBLE);
                     phoneNumber.setVisibility(View.VISIBLE);
                     address.setVisibility(View.VISIBLE);
-
+                    navigationLayout.setVisibility(View.VISIBLE);
+                    circleAvatar.setVisibility(View.VISIBLE);
                     name.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("name").getValue().toString());
                     address.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("address").getValue().toString());
                     phoneNumber.setText(dataSnapshot.child("user").child(mAuth.getUid()).child("info").child("phoneNumber").getValue().toString());
+                    circleAvatar.setText(getNameInitials(name.getText().toString()));
                 } else {
                     name.setVisibility(View.GONE);
                     phoneNumber.setVisibility(View.GONE);
                     address.setVisibility(View.GONE);
+                    navigationLayout.setVisibility(View.GONE);
+                    circleAvatar.setVisibility(View.GONE);
                 }
                 if (!dataSnapshot.child("user").child(mAuth.getUid()).exists()) {
                     startActivity(new Intent(MainCategoryActivity.this, LoginActivity.class));
@@ -100,6 +108,16 @@ public class MainCategoryActivity extends AppCompatActivity
                 Toast.makeText(MainCategoryActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String getNameInitials(String fullName) {
+        String initials = "";
+        String[] name = fullName.trim().split(" ");
+        for (String aName : name) {
+            initials = initials + aName.charAt(0);
+        }
+        return initials;
+
     }
 
     @Override
