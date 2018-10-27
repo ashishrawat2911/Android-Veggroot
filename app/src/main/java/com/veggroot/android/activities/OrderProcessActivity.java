@@ -29,7 +29,7 @@ import java.util.List;
 public class OrderProcessActivity extends AppCompatActivity {
     Integer noOfItems;
     Double totalCost;
-    TextView priceNoOfItems, cost, finalCost;
+    TextView priceNoOfItems, cost, finalCost, address;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     RecyclerView orderProcessRecyclerView;
@@ -48,6 +48,7 @@ public class OrderProcessActivity extends AppCompatActivity {
         priceNoOfItems = findViewById(R.id.priceNoOfItems);
         cost = findViewById(R.id.orderPrice);
         finalCost = findViewById(R.id.orderTotalValue);
+        address = findViewById(R.id.orderProcessAddress);
         priceNoOfItems.setText("Price ( " + noOfItems + "items )");
         cost.setText("Rs " + totalCost);
         finalCost.setText("Rs " + totalCost);
@@ -67,6 +68,7 @@ public class OrderProcessActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(orderProcessRecyclerView);
         loadList();
+        loadAddress();
     }
 
     public void confirmOrder(View view) {
@@ -75,8 +77,7 @@ public class OrderProcessActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Cart cart = dataSnapshot1.getValue(Cart.class);
-                    cartList.add(cart);
+
                 }
 
             }
@@ -101,8 +102,9 @@ public class OrderProcessActivity extends AppCompatActivity {
                     inCost = inCost + cart.getCost() * cart.getTotalNumber();
                 }
                 if (cartList.size() == 0) {
-                   finish();
+                    finish();
                 }
+                setTitle("Delivery ("+cartList.size()+")");
                 priceNoOfItems.setText("Price ( " + cartList.size() + " items )");
                 cost.setText("Rs " + inCost);
                 finalCost.setText("Rs " + inCost);
@@ -117,5 +119,20 @@ public class OrderProcessActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void loadAddress() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("info");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                address.setText("" + dataSnapshot.child("address").getValue() + "\n" + dataSnapshot.child("pincode").getValue());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(OrderProcessActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
