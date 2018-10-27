@@ -1,8 +1,6 @@
 package com.veggroot.android.fragments;
 
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,14 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.adaptor.CategoriesAdaptor;
 import com.veggroot.android.R;
-import com.veggroot.android.model.Vegetable;
+import com.veggroot.android.model.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +72,11 @@ public class VegetableCategoryFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.VISIBLE);
-                List<Vegetable> categoriesList = new ArrayList<>();
+                List<Items> categoriesList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Vegetable vegetable = dataSnapshot1.getValue(Vegetable.class);
-                    Log.e("Fire base data change ", "onDataChange: " + vegetable.getItemName());
-                    categoriesList.add(vegetable);
+                    Items items = dataSnapshot1.getValue(Items.class);
+                    Log.e("Fire base data change ", "onDataChange: " + items.getItemName());
+                    categoriesList.add(items);
                 }
                 progressBar.setVisibility(View.GONE);
                 categoriesAdaptor = new CategoriesAdaptor(getContext(), categoriesList);

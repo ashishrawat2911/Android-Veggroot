@@ -25,19 +25,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 import com.veggroot.android.model.Cart;
-import com.veggroot.android.model.Vegetable;
+import com.veggroot.android.model.Items;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.MyViewHolder> implements Filterable {
     private Context ctx;
-    private List<Vegetable> categoriesList;
-    private List<Vegetable> mFilteredList;
+    private List<Items> categoriesList;
+    private List<Items> mFilteredList;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-    public CategoriesAdaptor(Context ctx, List<Vegetable> categoriesList) {
+    public CategoriesAdaptor(Context ctx, List<Items> categoriesList) {
         this.ctx = ctx;
         this.categoriesList = categoriesList;
         this.mFilteredList = categoriesList;
@@ -99,13 +99,13 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                     mFilteredList = categoriesList;
                 } else {
 
-                    List<Vegetable> filteredList = new ArrayList<>();
+                    List<Items> filteredList = new ArrayList<>();
 
-                    for (Vegetable vegetable : categoriesList) {
+                    for (Items items : categoriesList) {
 
-                        if (vegetable.getItemName().toLowerCase().contains(charString) || vegetable.getItemName().toUpperCase().contains(charString)) {
+                        if (items.getItemName().toLowerCase().contains(charString) || items.getItemName().toUpperCase().contains(charString)) {
 
-                            filteredList.add(vegetable);
+                            filteredList.add(items);
                         }
                     }
                     mFilteredList = filteredList;
@@ -117,7 +117,7 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mFilteredList = (List<Vegetable>) filterResults.values;
+                mFilteredList = (List<Items>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
