@@ -24,30 +24,27 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainCategoryActivity" />
-
-
         </activity>
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.VerifyPhoneActivity" />
         <activity android:name=".activities.AddInfoActivity" />
-        <activity android:name=".activities.OrderProcessActivity"
-         >
+        <activity android:name=".activities.OrderProcessActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.CartActivity" />
-
-
         </activity>
         <activity android:name=".activities.EditAddressActivity" />
         <activity
             android:name=".activities.VisitUsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.OrdersActivity"></activity>
     </application>
 
 </manifest>
