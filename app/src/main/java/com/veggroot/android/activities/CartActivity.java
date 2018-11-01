@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -45,6 +48,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         setTitle("Cart");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         noOfItems = findViewById(R.id.no_of_items);
         totalCost = findViewById(R.id.cartTotalPrice);
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
@@ -119,5 +123,15 @@ public class CartActivity extends AppCompatActivity {
     public void startShopping(View view) {
         startActivity(new Intent(this, MainCategoryActivity.class));
         finish();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

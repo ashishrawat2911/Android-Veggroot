@@ -18,7 +18,15 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.CartActivity" />
+        <activity
+            android:name=".activities.CartActivity"
+            android:parentActivityName=".activities.MainCategoryActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainCategoryActivity" />
+
+
+        </activity>
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +36,18 @@
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.VerifyPhoneActivity" />
         <activity android:name=".activities.AddInfoActivity" />
-        <activity android:name=".activities.OrderProcessActivity" />
+        <activity android:name=".activities.OrderProcessActivity"
+         >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.CartActivity" />
+
+
+        </activity>
         <activity android:name=".activities.EditAddressActivity" />
-        <activity android:name=".activities.VisitUsActivity"/>
+        <activity
+            android:name=".activities.VisitUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
