@@ -30,17 +30,16 @@ import com.veggroot.android.model.Items;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.MyViewHolder> implements Filterable {
+public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.MyViewHolder>  {
     private Context ctx;
     private List<Items> categoriesList;
-    private List<Items> mFilteredList;
+   
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
     public CategoriesAdaptor(Context ctx, List<Items> categoriesList) {
         this.ctx = ctx;
         this.categoriesList = categoriesList;
-        this.mFilteredList = categoriesList;
     }
 
     @NonNull
@@ -54,16 +53,16 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Glide.with(ctx)
-                .load(mFilteredList.get(position).getItemImage())
+                .load(categoriesList.get(position).getItemImage())
                 .into(holder.categoriesImage);
-        holder.categoriesTitle.setText(mFilteredList.get(position).getItemName());
-        holder.marketPrice.setText("Rs " + mFilteredList.get(position).getMarketPrice() + " / " + mFilteredList.get(position).getUnit());
-        holder.itemRate.setText("Rs " + mFilteredList.get(position).getCost() + " / " + mFilteredList.get(position).getUnit());
+        holder.categoriesTitle.setText(categoriesList.get(position).getItemName());
+        holder.marketPrice.setText("Rs " + categoriesList.get(position).getMarketPrice() + " / " + categoriesList.get(position).getUnit());
+        holder.itemRate.setText("Rs " + categoriesList.get(position).getCost() + " / " + categoriesList.get(position).getUnit());
         holder.marketPrice.setPaintFlags(holder.marketPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(mFilteredList.get(position).getItemName()).exists()) {
+                if (dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(categoriesList.get(position).getItemName()).exists()) {
                     holder.addToCartButton.setText(R.string.added_to_cart);
                     holder.addToCartButton.setEnabled(false);
                 } else {
@@ -83,45 +82,9 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
 
     @Override
     public int getItemCount() {
-        return mFilteredList.size();
+        return categoriesList.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-
-                String charString = charSequence.toString();
-
-                if (charString.isEmpty()) {
-
-                    mFilteredList = categoriesList;
-                } else {
-
-                    List<Items> filteredList = new ArrayList<>();
-
-                    for (Items items : categoriesList) {
-
-                        if (items.getItemName().toLowerCase().contains(charString) || items.getItemName().toUpperCase().contains(charString)) {
-
-                            filteredList.add(items);
-                        }
-                    }
-                    mFilteredList = filteredList;
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mFilteredList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mFilteredList = (List<Items>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -144,23 +107,23 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
                     mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(mFilteredList.get(getAdapterPosition()).getItemName()).exists()) {
-                                Cart cart = new Cart(mFilteredList.get(getAdapterPosition()).getCost(),
-                                        mFilteredList.get(getAdapterPosition()).getItemId(),
-                                        mFilteredList.get(getAdapterPosition()).getItemName(),
-                                        mFilteredList.get(getAdapterPosition()).getItemImage()
-                                        , mFilteredList.get(getAdapterPosition()).getMarketPrice(),
+                            if (!dataSnapshot.child("user").child(mAuth.getUid()).child("cart").child(categoriesList.get(getAdapterPosition()).getItemName()).exists()) {
+                                Cart cart = new Cart(categoriesList.get(getAdapterPosition()).getCost(),
+                                        categoriesList.get(getAdapterPosition()).getItemId(),
+                                        categoriesList.get(getAdapterPosition()).getItemName(),
+                                        categoriesList.get(getAdapterPosition()).getItemImage()
+                                        , categoriesList.get(getAdapterPosition()).getMarketPrice(),
                                         1,
-                                        mFilteredList.get(getAdapterPosition()).getUnit());
+                                        categoriesList.get(getAdapterPosition()).getUnit());
                                 mDatabase.child("user")
                                         .child(mAuth.getUid())
                                         .child("cart")
-                                        .child(mFilteredList.get(getAdapterPosition()).getItemName())
+                                        .child(categoriesList.get(getAdapterPosition()).getItemName())
                                         .setValue(cart);
-                                Toast.makeText(ctx, mFilteredList.get(getAdapterPosition()).getItemName() + " Added to cart", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, categoriesList.get(getAdapterPosition()).getItemName() + " Added to cart", Toast.LENGTH_SHORT).show();
 
                             } else
-                                Toast.makeText(ctx, mFilteredList.get(getAdapterPosition()).getItemName() + " Already Added ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, categoriesList.get(getAdapterPosition()).getItemName() + " Already Added ", Toast.LENGTH_SHORT).show();
 
                         }
 

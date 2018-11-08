@@ -35,10 +35,8 @@ public class OrdersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_orders);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Orders");
-
         ordersRecyclerView = findViewById(R.id.ordersRecyclerView);
         linearLayout = findViewById(R.id.noItemsInOrder);
-
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ordersRecyclerView.setHasFixedSize(true);
         mAuth = FirebaseAuth.getInstance();
