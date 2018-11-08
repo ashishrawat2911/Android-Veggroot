@@ -21,8 +21,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 import com.veggroot.android.adaptor.CartAdaptor;
 import com.veggroot.android.model.Cart;
+import com.veggroot.android.model.OrderItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class OrderProcessActivity extends AppCompatActivity {
@@ -30,7 +33,7 @@ public class OrderProcessActivity extends AppCompatActivity {
     Double totalCost;
     TextView priceNoOfItems, cost, finalCost, address;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, confirmDatabase, cartDatabase;
     RecyclerView orderProcessRecyclerView;
     CartAdaptor cartAdaptor;
     List<Cart> cartList = new ArrayList<>();
@@ -41,6 +44,8 @@ public class OrderProcessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_process);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        confirmDatabase = FirebaseDatabase.getInstance().getReference();
+        cartDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         priceNoOfItems = findViewById(R.id.priceNoOfItems);
         cost = findViewById(R.id.orderPrice);
@@ -66,21 +71,28 @@ public class OrderProcessActivity extends AppCompatActivity {
     }
 
     public void confirmOrder(View view) {
-
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        Date c = Calendar.getInstance().getTime();
+        String itemNumber = cartList.size() + c.toString();
+        confirmDatabase = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("order")
+                .child(mAuth.getUid())
+                .child(itemNumber);
+        for (int i = 0; i < cartList.size(); i++) {
+            OrderItem orderItem = new OrderItem(
+                    cartList.get(i).getItemName(),
+                    cartList.get(i).getItemImage(),
+                    cartList.get(i).getCost(),
+                    c.toString(),
+                    cartList.get(i).getTotalNumber(),
+                    cartList.get(i).getUnit());
+            confirmDatabase.child(cartList.get(i).getItemName()).setValue(orderItem);
+        }
+        cartDatabase.child("user").child(mAuth.getUid()).child("cart").setValue(null);
+        Toast.makeText(this, "Order Placed", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainCategoryActivity.class));
+        finish();
     }
 
     private void loadList() {
@@ -133,12 +145,13 @@ public class OrderProcessActivity extends AppCompatActivity {
     public void editAddress(View view) {
         startActivity(new Intent(OrderProcessActivity.this, EditAddressActivity.class));
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-         onBackPressed();
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
