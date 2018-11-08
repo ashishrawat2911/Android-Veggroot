@@ -18,8 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.veggroot.android.adaptor.CategoriesAdaptor;
 import com.veggroot.android.R;
+import com.veggroot.android.adaptor.CategoriesAdaptor;
 import com.veggroot.android.model.Items;
 
 import java.util.ArrayList;

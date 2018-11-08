@@ -3,12 +3,8 @@ package com.veggroot.android.Database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 
 import com.veggroot.android.Database.ItemContract.ItemEntry;
-
-import static com.veggroot.android.Database.ItemContract.ItemEntry.ITEM_ID;
-import static com.veggroot.android.Database.ItemContract.ItemEntry._ID;
 
 public class ItemDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;

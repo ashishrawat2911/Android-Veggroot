@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.veggroot.android.activities.MainCategoryActivity;
 import com.veggroot.android.R;
+import com.veggroot.android.activities.MainCategoryActivity;
 import com.veggroot.android.fragments.FruitsCategoryFragment;
 import com.veggroot.android.fragments.VegetableCategoryFragment;
 
