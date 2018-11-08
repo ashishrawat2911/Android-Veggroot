@@ -3,11 +3,11 @@ package com.veggroot.android.model;
 public class Cart {
 
     private Double cost;
-    public int itemId;
-    public String itemName;
-    public String itemImage;
+    private int itemId;
+    private String itemName;
+    private String itemImage;
     private Double marketPrice;
-    public int totalNumber;
+    private int totalNumber;
     private String unit;
 
     public Cart() {
