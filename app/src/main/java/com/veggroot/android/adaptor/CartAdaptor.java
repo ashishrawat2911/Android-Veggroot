@@ -27,6 +27,7 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
     private List<Cart> categoriesList;
 
     private DatabaseReference mDatabase;
+    private DatabaseReference updateValueDatabase;
     private FirebaseAuth mAuth;
 
     public CartAdaptor(Context ctx, List<Cart> categoriesList) {
@@ -62,6 +63,44 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
         return categoriesList.size();
     }
 
+    private void updateList(int position, boolean b) {
+        updateValueDatabase = FirebaseDatabase.getInstance().getReference().child("user")
+                .child(mAuth.getUid())
+                .child("cart")
+                .child(categoriesList.get(position).getItemName())
+                .child("totalNumber");
+        try {
+
+            if (b) {
+                updateValueDatabase.setValue(categoriesList.get(position).getTotalNumber() + 1);
+                categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() + 1);
+            } else {
+                updateValueDatabase.setValue(categoriesList.get(position).getTotalNumber() - 1);
+                categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() - 1);
+
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        notifyItemChanged(position);
+    }
+
+    public void removeFromList(int position) {
+        String itemName = categoriesList.get(position).getItemName();
+        Toast.makeText(ctx, itemName + " removed from cart", Toast.LENGTH_SHORT).show();
+        mDatabase.child("user")
+                .child(mAuth.getUid())
+                .child("cart")
+                .child(itemName)
+                .setValue(null);
+        categoriesList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+ /*   public List<Cart> getCategoriesList() {
+        return categoriesList;
+    }*/
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView categoriesTitle, itemRate, noOfItems, marketPrice;
         ImageView categoriesImage;
@@ -71,6 +110,7 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mDatabase = FirebaseDatabase.getInstance().getReference();
+            updateValueDatabase = FirebaseDatabase.getInstance().getReference();
             mAuth = FirebaseAuth.getInstance();
             categoriesTitle = itemView.findViewById(R.id.cart_title_text_view);
             categoriesImage = itemView.findViewById(R.id.cart_image_view);
@@ -98,47 +138,6 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
                 }
             });
         }
-    }
-
-    public void removeFromList(int position) {
-        String itemName = categoriesList.get(position).getItemName();
-        Toast.makeText(ctx, itemName + " removed from cart", Toast.LENGTH_SHORT).show();
-        mDatabase.child("user")
-                .child(mAuth.getUid())
-                .child("cart")
-                .child(itemName)
-                .setValue(null);
-        categoriesList.remove(position);
-        notifyItemRemoved(position);
-    }
-
- /*   public List<Cart> getCategoriesList() {
-        return categoriesList;
-    }*/
-
-    private void updateList(int position, boolean b) {
-        try {
-
-            if (b) {
-                mDatabase.child("user")
-                        .child(mAuth.getUid())
-                        .child("cart")
-                        .child(categoriesList.get(position).getItemName())
-                        .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() + 1);
-                categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() + 1);
-            } else {
-                mDatabase.child("user")
-                        .child(mAuth.getUid())
-                        .child("cart")
-                        .child(categoriesList.get(position).getItemName())
-                        .child("totalNumber").setValue(categoriesList.get(position).getTotalNumber() - 1);
-                categoriesList.get(position).setTotalNumber(categoriesList.get(position).getTotalNumber() - 1);
-
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-        notifyItemChanged(position);
     }
 
 }
