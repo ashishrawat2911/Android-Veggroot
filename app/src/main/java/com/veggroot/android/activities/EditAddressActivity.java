@@ -16,6 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class EditAddressActivity extends AppCompatActivity {
     EditText address, pincode;
     private FirebaseAuth mAuth;
@@ -34,6 +38,7 @@ public class EditAddressActivity extends AppCompatActivity {
         setDetails();
     }
 
+    //fetching the address from the info in firebase database
     private void setDetails() {
         databaseReference.child("user")
                 .child(mAuth.getUid())
@@ -52,6 +57,7 @@ public class EditAddressActivity extends AppCompatActivity {
         });
     }
 
+    //update the address
     public void saveDetails(View view) {
         if (checkValidation()) {
             mDatabase
@@ -71,6 +77,7 @@ public class EditAddressActivity extends AppCompatActivity {
 
     }
 
+    //validation for edit text fields
     private boolean checkValidation() {
         if (TextUtils.isEmpty(address.getText().toString())) {
             address.setError("Field is empty");

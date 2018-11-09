@@ -2,6 +2,10 @@ package com.veggroot.android.Database;
 
 import android.provider.BaseColumns;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class ItemContract {
     public static abstract class ItemEntry implements BaseColumns {
 

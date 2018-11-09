@@ -19,6 +19,10 @@ import com.veggroot.android.model.Cart;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class OrdersActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -27,6 +31,7 @@ public class OrdersActivity extends AppCompatActivity {
     CartAdaptor cartAdaptor;
     List<Cart> categoriesList = new ArrayList<>();
     LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

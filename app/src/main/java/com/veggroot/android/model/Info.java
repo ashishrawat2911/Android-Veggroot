@@ -1,5 +1,9 @@
 package com.veggroot.android.model;
 
+/**
+ * created by Ashish Rawat
+ */
+
 
 public class Info {
     private String name;

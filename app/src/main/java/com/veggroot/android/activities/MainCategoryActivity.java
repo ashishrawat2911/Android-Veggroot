@@ -30,6 +30,10 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.veggroot.android.R;
 import com.veggroot.android.adaptor.ViewPagerCategoryAdaptor;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class MainCategoryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SmartTabLayout mSmartTabLayout;
@@ -64,6 +68,8 @@ public class MainCategoryActivity extends AppCompatActivity
         mSmartTabLayout.setViewPager(mViewPager);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //fetching the details of user to be displayed on navigation drawer
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

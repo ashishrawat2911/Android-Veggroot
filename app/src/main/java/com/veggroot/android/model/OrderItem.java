@@ -1,5 +1,9 @@
 package com.veggroot.android.model;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class OrderItem {
     private String itemName;
     private String itemImage;

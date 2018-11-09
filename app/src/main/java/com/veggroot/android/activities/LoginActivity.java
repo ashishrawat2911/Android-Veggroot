@@ -12,6 +12,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.veggroot.android.R;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class LoginActivity extends AppCompatActivity {
     EditText editText;
     private FirebaseAuth mAuth;
@@ -29,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
+
     public void login(View view) {
         String number = editText.getText().toString().trim();
         if (TextUtils.isEmpty(number) || number.length() < 10) {

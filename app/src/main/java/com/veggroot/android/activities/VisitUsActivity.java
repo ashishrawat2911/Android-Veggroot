@@ -14,6 +14,10 @@ import android.widget.ProgressBar;
 import com.veggroot.android.R;
 import com.veggroot.android.utils.Constants;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class VisitUsActivity extends AppCompatActivity {
     WebView webView;
     ProgressBar progressBar;

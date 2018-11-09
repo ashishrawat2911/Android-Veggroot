@@ -9,6 +9,10 @@ import com.veggroot.android.activities.MainCategoryActivity;
 import com.veggroot.android.fragments.FruitsCategoryFragment;
 import com.veggroot.android.fragments.VegetableCategoryFragment;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class ViewPagerCategoryAdaptor extends FragmentPagerAdapter {
 
     private MainCategoryActivity mContext;

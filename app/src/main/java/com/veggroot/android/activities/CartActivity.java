@@ -28,6 +28,10 @@ import com.veggroot.android.model.Cart;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class CartActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -44,8 +48,11 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        //Setting title on app bar
         setTitle("Cart");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //instantiate reference of fields
         noOfItems = findViewById(R.id.no_of_items);
         totalCost = findViewById(R.id.cartTotalPrice);
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
@@ -55,8 +62,11 @@ public class CartActivity extends AppCompatActivity {
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartRecyclerView.setHasFixedSize(true);
         mAuth = FirebaseAuth.getInstance();
+        //getting the instance for cart in firebase database
         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getUid()).child("cart");
         mDatabase.keepSynced(true);
+
+        //perform swipe operation for the cart recyclerView
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -66,6 +76,7 @@ public class CartActivity extends AppCompatActivity {
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //delete the item when swiped
                 cartAdaptor.removeFromList(viewHolder.getAdapterPosition());
             }
         }).attachToRecyclerView(cartRecyclerView);
@@ -74,11 +85,13 @@ public class CartActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Double cost = 0D;
                 categoriesList.clear();
+                //fetching the list of items from the cart in firebase database
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cart cart = dataSnapshot1.getValue(Cart.class);
                     cost = cost + cart.getCost() * cart.getTotalNumber();
                     categoriesList.add(cart);
                 }
+
                 if (categoriesList.size() == 0) {
                     setTitle("Cart");
                     bottomBar.setVisibility(View.GONE);
@@ -121,12 +134,13 @@ public class CartActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainCategoryActivity.class));
         finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-              onBackPressed();
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);

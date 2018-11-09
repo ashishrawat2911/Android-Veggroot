@@ -22,6 +22,10 @@ import com.veggroot.android.model.Cart;
 import java.util.List;
 
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> {
     private Context ctx;
     private List<Cart> categoriesList;

@@ -26,10 +26,14 @@ import com.veggroot.android.model.Items;
 
 import java.util.List;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.MyViewHolder>  {
     private Context ctx;
     private List<Items> categoriesList;
-   
+
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -80,7 +84,6 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.My
     public int getItemCount() {
         return categoriesList.size();
     }
-
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {

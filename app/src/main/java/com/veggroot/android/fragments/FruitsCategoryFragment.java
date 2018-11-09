@@ -27,7 +27,7 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * created by Ashish Rawat
  */
 public class FruitsCategoryFragment extends Fragment {
 

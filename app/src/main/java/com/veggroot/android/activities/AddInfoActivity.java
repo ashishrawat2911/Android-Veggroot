@@ -13,6 +13,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.veggroot.android.R;
 import com.veggroot.android.model.Info;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class AddInfoActivity extends AppCompatActivity {
     EditText name, email, address, pincode;
     private DatabaseReference mDatabase;
@@ -32,6 +36,7 @@ public class AddInfoActivity extends AppCompatActivity {
     }
 
     private void setFindViewById() {
+        //Instantiate the reference of feilds
         name = findViewById(R.id.addInfoName);
         email = findViewById(R.id.addInfoEmail);
         address = findViewById(R.id.addInfoAddress);
@@ -40,23 +45,25 @@ public class AddInfoActivity extends AppCompatActivity {
     }
 
     public void saveDetails(View view) {
-        saveToFirebaseDatabase(
-                name.getText().toString(),
-                email.getText().toString(),
-                address.getText().toString(),
-                pincode.getText().toString()
-        );
-    }
-    private void saveToFirebaseDatabase(String name, String email, String address, String pincode) {
         try {
-            Info info = new Info(name, email, address, pincode, mAuth.getCurrentUser().getPhoneNumber());
-            mDatabase.child("user").child(mAuth.getUid()).child("info").setValue(info);
-            startActivity(new Intent(AddInfoActivity.this, MainCategoryActivity.class));
-            finish();
-            Toast.makeText(this, "Details has been Saved", Toast.LENGTH_SHORT).show();
+            saveToFirebaseDatabase(
+                    name.getText().toString(),
+                    email.getText().toString(),
+                    address.getText().toString(),
+                    pincode.getText().toString()
+            );
         } catch (Exception e) {
             Toast.makeText(this, "Details not Saved", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+    }
+
+    //saving details to the firebase database
+    private void saveToFirebaseDatabase(String name, String email, String address, String pincode) {
+        Info info = new Info(name, email, address, pincode, mAuth.getCurrentUser().getPhoneNumber());
+        mDatabase.child("user").child(mAuth.getUid()).child("info").setValue(info);
+        startActivity(new Intent(AddInfoActivity.this, MainCategoryActivity.class));
+        finish();
+        Toast.makeText(this, "Details has been Saved", Toast.LENGTH_SHORT).show();
     }
 }

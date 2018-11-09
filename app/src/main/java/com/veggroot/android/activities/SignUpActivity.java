@@ -12,6 +12,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
 
+/**
+ * created by Ashish Rawat
+ */
+
 public class SignUpActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
@@ -29,6 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(SignUpActivity.this, (String)snapshot.getValue(), Toast.LENGTH_SHORT).show();
                 System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
