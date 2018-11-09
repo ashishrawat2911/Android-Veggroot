@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.veggroot.android.R;
+import com.veggroot.android.utils.Constants;
 
 /**
  * created by Ashish Rawat
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         Intent intent = new Intent(LoginActivity.this, VerifyPhoneActivity.class);
-        intent.putExtra("phonenumber", number);
+        intent.putExtra(Constants.PHONE_NUMBER, number);
         startActivity(intent);
         finish();
     }

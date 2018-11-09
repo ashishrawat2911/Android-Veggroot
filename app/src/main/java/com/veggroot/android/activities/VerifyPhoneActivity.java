@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.veggroot.android.R;
+import com.veggroot.android.utils.Constants;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -48,8 +49,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         editText = findViewById(R.id.editTextCode);
 
-        String phonenumber = getIntent().getStringExtra("phonenumber");
-        sendVerificationCode(phonenumber);
+        String phoneNumber = getIntent().getStringExtra(Constants.PHONE_NUMBER);
+        sendVerificationCode(phoneNumber);
 
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
             @Override
