@@ -136,7 +136,7 @@ public class CartAdaptor extends RecyclerView.Adapter<CartAdaptor.MyViewHolder> 
 
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            Toast.makeText(ctx, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
         notifyItemChanged(position);
     }
