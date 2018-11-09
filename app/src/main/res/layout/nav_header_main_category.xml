@@ -11,14 +11,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:visibility="visible">
+    android:visibility="gone">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="@color/colorWhite"
-        android:src="@drawable/ic_action_edit" />
     <TextView
         android:id="@+id/circleAvatar"
         android:layout_width="wrap_content"
